@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export const CustomCursor: React.FC = () => {
@@ -15,12 +15,35 @@ export const CustomCursor: React.FC = () => {
   const [hoverState, setHoverState] = useState<'default' | 'pointer'>('default');
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [enabled, setEnabled] = useState(true);
+  const isVisibleRef = useRef(false);
+  const hoverStateRef = useRef<'default' | 'pointer'>('default');
 
   useEffect(() => {
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    setEnabled(finePointer);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    let rafId: number | null = null;
+    let latestX = -100;
+    let latestY = -100;
+
     const moveMouse = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+      latestX = e.clientX;
+      latestY = e.clientY;
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        mouseX.set(latestX);
+        mouseY.set(latestY);
+        if (!isVisibleRef.current) {
+          isVisibleRef.current = true;
+          setIsVisible(true);
+        }
+      });
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -30,21 +53,28 @@ export const CustomCursor: React.FC = () => {
       const target = e.target as HTMLElement;
       // Broad check for interactive elements including inputs and typical interactive roles
       const isPointer = target.closest('a, button, .cursor-hover, [role="button"], input, textarea, select');
-      setHoverState(isPointer ? 'pointer' : 'default');
+      const nextState: 'default' | 'pointer' = isPointer ? 'pointer' : 'default';
+      if (hoverStateRef.current !== nextState) {
+        hoverStateRef.current = nextState;
+        setHoverState(nextState);
+      }
     };
 
-    window.addEventListener('mousemove', moveMouse);
+    window.addEventListener('mousemove', moveMouse, { passive: true });
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', checkHover);
+    window.addEventListener('mouseover', checkHover, { passive: true });
 
     return () => {
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
       window.removeEventListener('mousemove', moveMouse);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('mouseover', checkHover);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [enabled, mouseX, mouseY]);
+
+  if (!enabled) return null;
 
   return (
     <>

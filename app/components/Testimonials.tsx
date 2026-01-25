@@ -94,21 +94,21 @@ export const Testimonials: React.FC = () => {
          <div className="absolute top-0 right-0 w-20 md:w-40 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
          {/* Stream 1 */}
-         <div className="flex animate-[marquee_60s_linear_infinite] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch">
+         <div className="flex animate-marquee [animation-duration:60s] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
             {testimonials.map((t) => (
                 <TestimonialCard key={t.id} data={t} />
             ))}
          </div>
          
          {/* Stream 2 (Duplicate for loop) */}
-         <div className="flex animate-[marquee_60s_linear_infinite] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch">
+         <div className="flex animate-marquee [animation-duration:60s] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
             {testimonials.map((t) => (
                 <TestimonialCard key={`dup-${t.id}`} data={t} />
             ))}
          </div>
          
          {/* Stream 3 (Extra buffer for wide screens) */}
-         <div className="flex animate-[marquee_60s_linear_infinite] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch">
+         <div className="flex animate-marquee [animation-duration:60s] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
             {testimonials.map((t) => (
                 <TestimonialCard key={`dup2-${t.id}`} data={t} />
             ))}

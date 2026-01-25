@@ -22,16 +22,33 @@ export const HeroAI: React.FC = () => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
 
   useEffect(() => {
+    let rafId: number | null = null;
+    let latestX = 0;
+    let latestY = 0;
+
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX.current = e.clientX;
-      mouseY.current = e.clientY;
+      latestX = e.clientX;
+      latestY = e.clientY;
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        mouseX.current = latestX;
+        mouseY.current = latestY;
+      });
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   // Neural Network Canvas Animation
   useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -39,6 +56,7 @@ export const HeroAI: React.FC = () => {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
+    let running = true;
     
     const resize = () => {
       width = window.innerWidth;
@@ -47,13 +65,19 @@ export const HeroAI: React.FC = () => {
       canvas.height = height;
     };
     resize();
-    window.addEventListener('resize', resize);
+    const handleVisibility = () => {
+      running = document.visibilityState === 'visible';
+    };
+
+    window.addEventListener('resize', resize, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibility);
 
     // Particles Configuration
     const particles: {x: number, y: number, vx: number, vy: number, size: number}[] = [];
-    const particleCount = 80; // Density
+    const particleCount = width > 1200 ? 70 : 55;
     const connectionDistance = 180;
     const mouseInteractionDistance = 250;
+    const connectionDistanceSq = connectionDistance * connectionDistance;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -65,8 +89,24 @@ export const HeroAI: React.FC = () => {
       });
     }
 
-    const animate = () => {
+    let lastTime = 0;
+    const frameMs = 1000 / 30;
+    let connectToggle = false;
+
+    const animate = (t: number) => {
+      if (!running) {
+        requestAnimationFrame(animate);
+        return;
+      }
+
+      if (t - lastTime < frameMs) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      lastTime = t;
+
       ctx.clearRect(0, 0, width, height);
+      connectToggle = !connectToggle;
       
       // Update and Draw Particles
       particles.forEach((p, i) => {
@@ -95,19 +135,23 @@ export const HeroAI: React.FC = () => {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Connect lines
-        for (let j = i + 1; j < particles.length; j++) {
-           const p2 = particles[j];
-           const dx2 = p.x - p2.x;
-           const dy2 = p.y - p2.y;
-           const dist2 = Math.sqrt(dx2*dx2 + dy2*dy2);
+        // Connect lines (every other frame to reduce work)
+        if (connectToggle) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx2 = p.x - p2.x;
+            const dy2 = p.y - p2.y;
+            const dist2Sq = dx2 * dx2 + dy2 * dy2;
 
-           if (dist2 < connectionDistance) {
-             // Opacity based on distance
-             let alpha = 1 - dist2/connectionDistance;
+            if (dist2Sq < connectionDistanceSq) {
+              const dist2 = Math.sqrt(dist2Sq);
+              // Opacity based on distance
+              let alpha = 1 - dist2/connectionDistance;
              
              // If close to mouse, turn red/active
-             const mouseDistAvg = (dist + Math.sqrt(Math.pow(mouseX.current - p2.x, 2) + Math.pow(mouseY.current - p2.y, 2))) / 2;
+              const m2dx = mouseX.current - p2.x;
+              const m2dy = mouseY.current - p2.y;
+              const mouseDistAvg = (dist + Math.sqrt(m2dx * m2dx + m2dy * m2dy)) / 2;
              
              if (mouseDistAvg < 200) {
                 ctx.strokeStyle = `rgba(255, 31, 31, ${alpha * 0.4})`; // Red when active
@@ -121,7 +165,8 @@ export const HeroAI: React.FC = () => {
              ctx.moveTo(p.x, p.y);
              ctx.lineTo(p2.x, p2.y);
              ctx.stroke();
-           }
+            }
+          }
         }
       });
       requestAnimationFrame(animate);
@@ -131,6 +176,7 @@ export const HeroAI: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', handleVisibility);
       cancelAnimationFrame(animId);
     };
   }, []);

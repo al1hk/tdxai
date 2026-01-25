@@ -1,8 +1,7 @@
-
 "use client"
 import React, { useState, useRef } from 'react';
 import { SectionWrapper } from './SectionWrapper';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { 
   BrainCircuit, 
   Workflow, 
@@ -14,61 +13,121 @@ import {
   Search,
   Share2,
   ArrowUpRight,
-  Terminal
+  Terminal,
+  Activity,
+  Plus,
+  Minus,
+  Cpu,
+  Scan,
+  Zap
 } from 'lucide-react';
 
 const services = [
   {
     title: "AI Driven Services",
     description: "Deep learning models & neural integration.",
+    details: [
+      "Neural Architecture Search", 
+      "Large Language Model Tuning", 
+      "Computer Vision Pipelines", 
+      "Edge AI Deployment"
+    ],
     tag: "ML_CORE",
     icon: BrainCircuit
   },
   {
     title: "Business Automation",
     description: "Workflow orchestration & data sync.",
+    details: [
+      "RPA Implementation", 
+      "Enterprise Workflows", 
+      "Custom ETL Pipelines", 
+      "Legacy System Bridging"
+    ],
     tag: "AUTO_OPS",
     icon: Workflow
   },
   {
     title: "Blockchain Dev",
     description: "Smart contracts & decentralized ledgers.",
+    details: [
+      "Solidity Smart Contracts", 
+      "DeFi Protocol Engineering", 
+      "NFT Marketplace Architecture", 
+      "Layer 2 Scaling Solutions"
+    ],
     tag: "WEB3_SEC",
     icon: Blocks
   },
   {
     title: "Web App Development",
     description: "Scalable SaaS & cloud architectures.",
+    details: [
+      "React/Next.js Ecosystems", 
+      "Serverless Cloud Infrastructure", 
+      "Progressive Web Apps (PWA)", 
+      "Real-time WebSocket Systems"
+    ],
     tag: "FULL_STACK",
     icon: Globe
   },
   {
     title: "Mobile Ecosystems",
     description: "Native iOS/Android performance.",
+    details: [
+      "React Native Cross-Platform", 
+      "Swift/Kotlin Native Modules", 
+      "App Store Optimization (ASO)", 
+      "Offline-First Architecture"
+    ],
     tag: "NATIVE_OS",
     icon: Smartphone
   },
   {
     title: "AI Agents",
     description: "Autonomous decision-making entities.",
+    details: [
+      "Autonomous Task Execution", 
+      "Multi-Agent Swarm Intelligence", 
+      "Goal-Oriented Planning", 
+      "Human-in-the-loop Systems"
+    ],
     tag: "AGENT_X",
     icon: Bot
   },
   {
     title: "WordPress Enterprise",
     description: "Custom headless CMS solutions.",
+    details: [
+      "Headless WP + GraphQL", 
+      "Custom Gutenberg Blocks", 
+      "High-Performance Caching", 
+      "Enterprise Security Hardening"
+    ],
     tag: "CMS_PRO",
     icon: LayoutTemplate
   },
   {
     title: "SEO Intelligence",
     description: "Algorithmic ranking dominance.",
+    details: [
+      "Semantic Core Analysis", 
+      "Technical SEO Audits", 
+      "Programmatic SEO Generation", 
+      "SERP Feature Optimization"
+    ],
     tag: "SEARCH_AI",
     icon: Search
   },
   {
     title: "Social Algorithms",
     description: "Data-driven engagement loops.",
+    details: [
+      "Viral Loop Engineering", 
+      "Social Graph Analysis", 
+      "Content Recommendation Engines", 
+      "Growth Hacking Scripts"
+    ],
     tag: "VIRAL_NET",
     icon: Share2
   }
@@ -76,178 +135,238 @@ const services = [
 
 export const Services: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Parallax hook
+  // Parallax hook for subtle background movement
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Transform for background grid movement
-  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-
   return (
-    <section ref={containerRef} id="services" className="bg-white py-32 lg:py-48 relative z-10 overflow-hidden">
+    <section ref={containerRef} id="services" className="bg-white py-24 lg:py-32 relative z-10 overflow-hidden">
+      
+      {/* Background Ambience */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-red-50/50 rounded-full blur-[120px]" />
+         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-neutral-100/50 rounded-full blur-[100px]" />
+      </div>
+
       <SectionWrapper>
         
         {/* Editorial Header */}
-        <div className="mb-32 flex flex-col md:flex-row justify-between items-end border-b border-black/10 pb-12">
-          <div className="max-w-4xl">
-             <div className="flex items-center gap-4 mb-6">
-                <div className="w-3 h-3 bg-tdx-red" />
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500">Service Manifest</span>
-             </div>
-             <h2 className="text-7xl md:text-9xl font-serif text-black leading-[0.8] tracking-tighter">
-               Capabilities <br/>
-               <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-600 to-neutral-400 italic">Indexed.</span>
-             </h2>
-          </div>
-          <div className="hidden md:flex flex-col items-end gap-2">
-             <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">System Status</span>
-             <div className="flex items-center gap-2">
-               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-               <span className="font-bold font-mono text-sm text-black">OPERATIONAL</span>
-             </div>
-          </div>
+        <div className="relative mb-24 flex flex-col md:flex-row justify-between items-end border-b border-black/5 pb-12">
+            <div className="max-w-4xl relative z-10">
+                <div className="flex items-center gap-3 mb-8">
+                    <span className="flex items-center justify-center w-6 h-6 border border-red-600 rounded-full text-red-600">
+                        <Scan size={12} />
+                    </span>
+                    <span className="font-mono text-xs uppercase tracking-[0.3em] text-red-600 font-bold">System Manifest v2.0</span>
+                </div>
+                <h2 className="text-6xl md:text-8xl font-serif text-black leading-[0.85] tracking-tighter">
+                  Core <br/>
+                  <span className="italic text-neutral-300 font-light">Capabilities</span><span className="text-red-600">.</span> 
+                </h2>
+            </div>
+
+            <div className="hidden md:flex flex-col items-end gap-4 pb-2">
+                <div className="flex items-center gap-3 px-4 py-2 bg-neutral-50 rounded-full border border-neutral-100">
+                  <div className="relative w-2 h-2">
+                    <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75" />
+                    <div className="relative w-2 h-2 bg-red-600 rounded-full" />
+                  </div>
+                  <span className="font-bold font-mono text-[10px] text-neutral-600 tracking-widest">GRID ONLINE</span>
+                </div>
+                <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest text-right leading-relaxed">
+                    Interactive Grid System<br/>
+                    Select module for details
+                </p>
+            </div>
         </div>
 
         {/* The Dossier Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/10 bg-black">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/5 bg-white">
           {services.map((service, index) => {
+            // Grid Layout Logic
             const isFeatured = index === 0;
-            const isLast = index === services.length - 1;
-            const isHovered = hoveredIndex === index;
+            const isWide = index === 3;
+            const isLast = index === 8;
             
+            const isHovered = hoveredIndex === index;
+            const isExpanded = expandedIndex === index;
+            const isActive = isHovered || isExpanded;
+            
+            let gridClass = 'min-h-[380px] border-r border-b border-black/5';
+            if (isFeatured) gridClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[500px] lg:min-h-[760px] border-r border-b border-black/5';
+            else if (isWide) gridClass = 'lg:col-span-2 min-h-[380px] border-r border-b border-black/5';
+            else if (isLast) gridClass = 'lg:col-span-3 min-h-[340px] lg:flex-row lg:items-center border-r border-b border-black/5';
+
             return (
-              <div 
+              <motion.div 
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 key={index}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer transition-colors duration-500 ease-in-out border-r border-b border-white/10
-                  ${isFeatured 
-                    ? 'md:col-span-2 z-10 hover:z-20 shadow-[0_0_50px_-10px_rgba(220,0,0,0.5)] hover:shadow-[0_20px_60px_-10px_rgba(220,0,0,0.3)]' 
-                    : 'hover:z-20 hover:shadow-2xl'}
-                  bg-black hover:bg-white
-                  ${isLast ? 'lg:col-span-3' : ''}
-                  min-h-[420px] lg:min-h-[480px]
+                onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer bg-white transition-colors duration-500
+                  ${gridClass}
                 `}
               >
-                {/* Internal Padding Container */}
-                <div className={`relative h-full w-full flex flex-col justify-between ${isFeatured ? 'p-10 lg:p-14' : 'p-8 lg:p-10'}`}>
+                {/* Active Background - Gradient Red */}
+                <motion.div
+                    className="absolute inset-0 z-0 bg-gradient-to-br from-red-600 via-red-600 to-red-700"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                />
+                
+                {/* Dot Matrix Texture Overlay (Only visible on Active) */}
+                <motion.div
+                    className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[length:24px_24px]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isActive ? 0.15 : 0 }}
+                />
+
+                {/* Top Interaction Line */}
+                <motion.div 
+                    className="absolute top-0 left-0 h-[2px] bg-red-600 z-20"
+                    initial={{ width: 0 }}
+                    animate={{ width: isActive ? '100%' : '0%' }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                />
+
+                {/* Content Container */}
+                <div className={`relative z-10 h-full w-full flex flex-col justify-between p-8 md:p-10 ${isLast ? 'lg:flex-row lg:w-full lg:items-center' : ''}`}>
                     
-                    {/* Parallax Grid Background */}
-                    <motion.div 
-                    style={{ y: gridY }}
-                    className="absolute inset-[-20%] opacity-[0.15] group-hover:opacity-[0.05] pointer-events-none transition-opacity duration-500 
-                    bg-[linear-gradient(rgba(255,255,255,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.2)_1px,transparent_1px)] 
-                    group-hover:bg-[linear-gradient(rgba(0,0,0,1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,1)_1px,transparent_1px)] 
-                    bg-[size:40px_40px]" 
-                    />
-                    
-                    {/* Top Meta */}
-                    <div className="relative z-10 flex justify-between items-start">
-                      <div className="flex flex-col gap-1">
-                          <span className={`font-mono transition-colors duration-300 ${isFeatured ? 'text-tdx-red font-bold' : 'text-neutral-500 group-hover:text-tdx-red'} text-xs`}>
-                          ID_0{index + 1}
-                          </span>
-                          <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 group-hover:text-neutral-400 transition-colors">
-                          / {service.tag}
+                    {/* Header */}
+                    <div className={`flex justify-between items-start w-full ${isLast ? 'lg:w-auto lg:gap-16' : ''}`}>
+                      <div className="flex flex-col gap-2">
+                          <div className={`flex items-center gap-2 font-mono text-xs font-bold tracking-widest transition-colors duration-300 ${isActive ? 'text-white' : 'text-red-600'}`}>
+                            <span>0{index + 1}</span>
+                            <div className={`h-[1px] w-8 transition-colors duration-300 ${isActive ? 'bg-white/50' : 'bg-red-200'}`} />
+                          </div>
+                          
+                          <span className={`font-mono text-[9px] uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-white/70' : 'text-neutral-400'}`}>
+                             {service.tag}
                           </span>
                       </div>
+                      
+                      {/* Expansion Toggle Button */}
                       <motion.div 
-                          animate={{ rotate: isHovered ? 45 : 0 }}
-                          transition={{ duration: 0.4 }}
-                          className={isFeatured ? 'text-tdx-red' : 'text-neutral-500 group-hover:text-black'}
+                          animate={{ rotate: isExpanded ? 0 : 0 }}
+                          className={`
+                            relative flex items-center justify-center w-8 h-8 rounded-full border transition-all duration-300
+                            ${isActive ? 'border-white text-white rotate-180' : 'border-neutral-200 text-neutral-400 group-hover:border-red-200 group-hover:text-red-400'}
+                          `}
                       >
-                          <ArrowUpRight size={isFeatured ? 28 : 24} />
+                          <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
+                          {isExpanded ? <Minus size={14} /> : <Plus size={14} />}
                       </motion.div>
                     </div>
 
-                    {/* Main Content */}
-                    <div className="relative z-10 mt-auto pt-24">
-                      {/* Icon Watermark */}
-                      <div className={`absolute pointer-events-none transition-all duration-700 ease-out
+                    {/* Middle / Bottom Content */}
+                    <div className={`mt-auto pt-16 relative ${isLast ? 'lg:mt-0 lg:flex-1 lg:pl-12 lg:pt-0' : ''}`}>
+                      
+                      {/* Technical Watermark Icon - Subtle */}
+                      <div className={`absolute pointer-events-none transition-all duration-700 ease-out z-0
                           ${isFeatured 
-                              ? '-right-12 -top-12 text-tdx-red opacity-[0.1]' 
-                              : '-right-8 -top-12 opacity-[0.1] group-hover:opacity-[0.05] text-white group-hover:text-black scale-100 group-hover:scale-110'}
+                              ? 'right-[-5%] bottom-[-5%] opacity-[0.03] group-hover:opacity-10 scale-110 group-hover:scale-100 rotate-0' 
+                              : isLast 
+                                ? 'left-[40%] top-1/2 -translate-y-1/2 opacity-[0.03] scale-125 group-hover:opacity-10'
+                                : 'right-[-10%] bottom-[-10%] opacity-[0.03] group-hover:opacity-10 scale-150 group-hover:scale-125 rotate-12'}
+                          ${isActive ? 'text-white' : 'text-black'}
                       `}>
-                          {isFeatured ? (
-                              <motion.div
-                                animate={{ 
-                                    scale: [1, 1.05, 1],
-                                    opacity: [0.1, 0.2, 0.1]
-                                }}
-                                transition={{ 
-                                    duration: 3, 
-                                    repeat: Infinity,
-                                    ease: "easeInOut" 
-                                }}
-                              >
-                                <service.icon size={360} strokeWidth={0.5} />
-                              </motion.div>
-                          ) : (
-                              <motion.div
-                                animate={isHovered ? { y: [0, -15, 0] } : {}}
-                                transition={{
-                                  duration: 1.5,
-                                  repeat: Infinity,
-                                  ease: "easeInOut"
-                                }}
-                              >
-                                <service.icon size={180} strokeWidth={0.5} />
-                              </motion.div>
-                          )}
+                          <service.icon size={isFeatured ? 480 : 280} strokeWidth={0.5} />
                       </div>
 
-                      <h3 className={`font-serif leading-tight transition-colors duration-300 relative 
-                          ${isFeatured ? 'text-5xl lg:text-7xl mb-8 tracking-tight font-medium text-white group-hover:text-black' : 'text-3xl lg:text-4xl mb-4 text-white group-hover:text-black'}
+                      {/* Title */}
+                      <h3 className={`font-serif leading-[0.9] transition-colors duration-300 relative z-10
+                          ${isFeatured 
+                            ? 'text-5xl md:text-7xl mb-6 font-medium tracking-tight' 
+                            : isLast 
+                                ? 'text-4xl md:text-5xl lg:text-6xl mb-4 lg:mb-0' 
+                                : 'text-3xl md:text-4xl mb-4'}
+                          ${isActive ? 'text-white' : 'text-black'}
                       `}>
                           {service.title}
                       </h3>
                       
-                      {/* Description with Bolder Hover Effect */}
-                      <p className={`font-light leading-relaxed transition-all duration-300 relative
-                          ${isFeatured 
-                            ? 'text-xl md:text-2xl text-neutral-400 font-normal max-w-2xl group-hover:text-neutral-800' 
-                            : 'text-sm max-w-[90%] text-neutral-400 group-hover:text-black group-hover:font-semibold'}
-                      `}>
-                          {service.description}
-                      </p>
-
-                      {/* Tags Reveal */}
-                      <div className="flex flex-wrap gap-2 mt-8">
-                          <span className={`px-3 py-1 border text-[10px] font-mono uppercase tracking-wider transition-colors duration-300
+                      {/* Description Reveal */}
+                      <div className={`overflow-hidden transition-all duration-500 ease-out 
+                        ${isActive || isFeatured ? 'opacity-100 max-h-96' : 'max-h-0 opacity-0 lg:max-h-24 lg:opacity-100'}`}>
+                          <p className={`font-sans font-light leading-relaxed transition-colors duration-300
                               ${isFeatured 
-                                  ? 'border-tdx-red/30 text-tdx-red bg-tdx-red/5' 
-                                  : 'border-white/10 group-hover:border-black/20 text-neutral-500 group-hover:text-black'}
+                                ? 'text-lg md:text-xl text-neutral-500 max-w-lg' 
+                                : 'text-sm text-neutral-500 max-w-[90%]'}
+                              ${isActive ? 'text-white/80' : 'text-neutral-500'}
                           `}>
-                              {service.tag}
-                          </span>
-                          <span className={`px-3 py-1 border text-[10px] font-mono uppercase tracking-wider transition-colors duration-300
-                              ${isFeatured
-                                  ? 'border-tdx-red/30 text-tdx-red bg-tdx-red/5'
-                                  : 'border-white/10 group-hover:border-black/20 text-neutral-500 group-hover:text-black'}
-                          `}>
-                              SYS_READY
-                          </span>
+                              {service.description}
+                          </p>
                       </div>
+
+                      {/* Expanded Details List */}
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                            className="overflow-hidden"
+                          >
+                             <div className="pt-8 mt-2 relative">
+                                {/* Decorative Line */}
+                                <div className="absolute top-4 left-0 w-8 h-[1px] bg-white/30" />
+                                
+                                <ul className={`grid gap-x-8 gap-y-3 ${isWide || isLast || isFeatured ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                                  {service.details.map((detail, idx) => (
+                                    <motion.li 
+                                      key={idx}
+                                      initial={{ x: -10, opacity: 0 }}
+                                      animate={{ x: 0, opacity: 1 }}
+                                      transition={{ delay: 0.1 + (idx * 0.05), duration: 0.3 }}
+                                      className="flex items-start gap-3 group/item"
+                                    >
+                                      <Zap size={10} className="mt-0.5 text-white/50 group-hover/item:text-white transition-colors" />
+                                      <span className="font-mono text-[10px] uppercase tracking-wide text-white/90 group-hover/item:text-white transition-colors">
+                                        {detail}
+                                      </span>
+                                    </motion.li>
+                                  ))}
+                                </ul>
+                             </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
                     </div>
 
-                    {/* Corner Accents */}
-                    <div className={`absolute bottom-0 right-0 w-0 h-0 border-b-[60px] border-r-[60px] border-b-transparent border-r-transparent transition-all duration-300 ease-out
-                        ${isFeatured ? 'border-r-tdx-red scale-100' : 'group-hover:border-r-tdx-red scale-0 group-hover:scale-100'}
-                    `} />
-                    <Terminal size={16} className={`absolute bottom-4 right-4 z-20 transition-opacity duration-500 delay-100
-                        ${isFeatured ? 'opacity-100 text-white group-hover:text-black' : 'opacity-0 group-hover:opacity-100 text-black'}
-                    `} />
+                    {/* Footer / Status Area */}
+                    <div className={`mt-8 flex items-end justify-between relative z-10 ${isLast ? 'lg:mt-0 lg:justify-end lg:w-auto lg:gap-8' : ''}`}>
+                          <div className={`hidden md:flex flex-wrap gap-2`}>
+                             {isActive && (
+                                <span className="font-mono text-[9px] text-white/60 uppercase tracking-widest animate-pulse">
+                                    System Active
+                                </span>
+                             )}
+                          </div>
+                          
+                          {/* Corner Accent */}
+                          <div className={`absolute -bottom-2 -right-2 w-4 h-4 border-r border-b transition-colors duration-300
+                             ${isActive ? 'border-white' : 'border-neutral-300'}
+                          `} />
+                    </div>
                 </div>
               
-              </div>
+              </motion.div>
             );
           })}
         </div>
-
       </SectionWrapper>
     </section>
   );

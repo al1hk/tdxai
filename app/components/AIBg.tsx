@@ -6,6 +6,9 @@ export const AIBg: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -16,6 +19,7 @@ export const AIBg: React.FC = () => {
     let height = window.innerHeight;
     let mouseX = 0;
     let mouseY = 0;
+    let running = true;
 
     const resize = () => {
       width = window.innerWidth;
@@ -29,8 +33,13 @@ export const AIBg: React.FC = () => {
       mouseY = e.clientY;
     };
 
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', handleMouseMove);
+    const handleVisibility = () => {
+      running = document.visibilityState === 'visible';
+    };
+
+    window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibility);
     resize();
 
     interface Point {
@@ -42,7 +51,7 @@ export const AIBg: React.FC = () => {
 
     // Grid of points
     const points: Point[] = [];
-    const spacing = 60;
+    const spacing = width > 1200 ? 70 : 60;
     const rows = Math.ceil(height / spacing);
     const cols = Math.ceil(width / spacing);
 
@@ -57,7 +66,26 @@ export const AIBg: React.FC = () => {
       }
     }
 
-    const animate = () => {
+    const maxDist = 200;
+    const maxDistSq = maxDist * maxDist;
+    const hotDistSq = 250 * 250;
+
+    let lastTime = 0;
+    const frameMs = 1000 / 30;
+    let rafId = 0;
+
+    const animate = (t: number) => {
+      if (!running) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+
+      if (t - lastTime < frameMs) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+      lastTime = t;
+
       ctx.clearRect(0, 0, width, height);
       
       // Draw grid lines first (faint)
@@ -68,14 +96,14 @@ export const AIBg: React.FC = () => {
         // Physics: Move points away from mouse
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = 200;
+        const distSq = dx * dx + dy * dy;
         
-        if (dist < maxDist) {
+        if (distSq < maxDistSq) {
+          const dist = Math.sqrt(distSq);
           const force = (maxDist - dist) / maxDist;
           const angle = Math.atan2(dy, dx);
           const push = force * 20;
-          
+
           p.x += Math.cos(angle) * push * 0.1;
           p.y += Math.sin(angle) * push * 0.1;
         }
@@ -87,21 +115,22 @@ export const AIBg: React.FC = () => {
         p.y += dky * 0.05;
 
         // Draw point
-        ctx.fillStyle = dist < 250 ? 'rgba(255, 31, 31, 0.4)' : 'rgba(200, 200, 200, 0.2)';
+        ctx.fillStyle = distSq < hotDistSq ? 'rgba(255, 31, 31, 0.4)' : 'rgba(200, 200, 200, 0.2)';
         ctx.beginPath();
-        ctx.arc(p.x, p.y, dist < 250 ? 2 : 1, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, distSq < hotDistSq ? 2 : 1, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
-    const animationId = requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationId);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
