@@ -2,12 +2,14 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Moon, Sun } from 'lucide-react';
+import { useTheme } from './ThemeProvider';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const scrolledRef = useRef(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     let rafId: number | null = null;
@@ -50,7 +52,7 @@ export const Navbar: React.FC = () => {
         <div className={`
           flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500
           ${scrolled 
-            ? 'w-full max-w-5xl bg-white/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50' 
+            ? 'w-full max-w-5xl bg-white/70 dark:bg-neutral-950/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 dark:border-white/10' 
             : 'w-full max-w-7xl bg-transparent'
           }
         `}>
@@ -61,18 +63,18 @@ export const Navbar: React.FC = () => {
               <span className="absolute z-10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 block text-tdx-red">T</span>
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <span className={`font-display font-bold text-xl tracking-tight ${scrolled ? 'text-gray-900' : 'text-gray-900'}`}>
+            <span className={`font-display font-bold text-xl tracking-tight ${scrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
               TDX
             </span>
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center bg-gray-100/50 rounded-full px-2 p-1 border border-gray-200/50 backdrop-blur-sm">
+          <div className="hidden md:flex items-center bg-gray-100/50 dark:bg-white/5 rounded-full px-2 p-1 border border-gray-200/50 dark:border-white/10 backdrop-blur-sm">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-black transition-colors relative cursor-hover rounded-full hover:bg-white/80"
+                className="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors relative cursor-hover rounded-full hover:bg-white/80 dark:hover:bg-white/10"
               >
                 {link.name}
               </a>
@@ -80,6 +82,14 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
+             <button
+              type="button"
+              aria-label="Toggle dark mode"
+              onClick={toggleTheme}
+              className="w-11 h-11 rounded-full flex items-center justify-center border border-gray-200/60 dark:border-white/10 bg-white/70 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-white dark:hover:bg-white/10 transition-colors cursor-hover"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
              <button className="flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-tdx-red rounded-full hover:bg-black transition-all duration-300 shadow-[0_0_20px_rgba(255,31,31,0.3)] hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] group cursor-hover">
               Start Project
               <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-300" />
@@ -88,7 +98,7 @@ export const Navbar: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-gray-900 p-2 bg-gray-100 rounded-full cursor-hover"
+            className="md:hidden text-gray-900 dark:text-white p-2 bg-gray-100 dark:bg-white/5 rounded-full cursor-hover"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -103,7 +113,7 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-0 z-40 bg-white pt-24 px-6 flex flex-col items-center"
+            className="fixed inset-0 z-40 bg-white dark:bg-neutral-950 pt-24 px-6 flex flex-col items-center"
           >
             {navLinks.map((link, i) => (
               <motion.a
@@ -113,11 +123,19 @@ export const Navbar: React.FC = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-4xl font-display font-bold text-gray-900 mb-8 hover:text-tdx-red transition-colors"
+                className="text-4xl font-display font-bold text-gray-900 dark:text-white mb-8 hover:text-tdx-red transition-colors"
               >
                 {link.name}
               </motion.a>
             ))}
+            <button
+              type="button"
+              aria-label="Toggle dark mode"
+              onClick={toggleTheme}
+              className="mt-2 mb-8 w-full max-w-xs px-6 py-4 text-lg font-bold rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white"
+            >
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            </button>
              <button className="w-full max-w-xs mt-8 px-6 py-4 text-lg font-bold text-white bg-tdx-red rounded-full shadow-lg">
               Start Project
             </button>

@@ -13,7 +13,7 @@ import { CoreValues } from './components/CoreValues';
 
 const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen font-sans selection:bg-tdx-red selection:text-white bg-white cursor-none">
+    <div className="relative min-h-screen font-sans selection:bg-tdx-red selection:text-white bg-white dark:bg-neutral-950 text-black dark:text-white cursor-none">
       <div className="bg-noise" />
       <CustomCursor />
       <AIBg />

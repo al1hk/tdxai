@@ -182,7 +182,7 @@ export const HeroAI: React.FC = () => {
   }, []);
 
   return (
-    <section ref={ref} className="relative min-h-[110vh] flex flex-col justify-center overflow-hidden bg-white pt-24">
+    <section ref={ref} className="relative min-h-[110vh] flex flex-col justify-center overflow-hidden bg-white dark:bg-neutral-950 pt-24">
       
       {/* --- NEW DYNAMIC BACKGROUND LAYERS --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -211,28 +211,28 @@ export const HeroAI: React.FC = () => {
         {/* Left: Typography */}
         <motion.div style={{ y, opacity }} className="relative z-20">
           <div className="flex items-center gap-4 mb-8">
-            <div className="px-4 py-1.5 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm shadow-sm flex items-center gap-3">
+            <div className="px-4 py-1.5 rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-sm shadow-sm flex items-center gap-3">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tdx-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-tdx-red"></span>
               </span>
               <span className="font-mono text-xs font-bold tracking-widest uppercase">System Online</span>
             </div>
-            <div className="h-[1px] w-12 bg-black/10" />
+            <div className="h-[1px] w-12 bg-black/10 dark:bg-white/10" />
             <span className="font-mono text-xs text-gray-400">EST. 2024</span>
           </div>
 
-          <h1 className="font-display font-bold text-8xl md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-black mb-8 relative">
+          <h1 className="font-display font-bold text-8xl md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-black dark:text-white mb-8 relative">
             FUTURE <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tdx-red to-black relative z-10">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tdx-red to-black dark:to-white relative z-10">
               PRIME
-              <span className="absolute -top-4 -right-8 text-2xl text-black font-mono tracking-normal opacity-50 hidden md:inline-block">V.1</span>
+              <span className="absolute -top-4 -right-8 text-2xl text-black dark:text-white font-mono tracking-normal opacity-50 hidden md:inline-block">V.1</span>
             </span>
             {/* Subtle Text Glow Behind Headline */}
             <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-tdx-red/20 blur-[60px] -z-10" />
           </h1>
 
-          <p className="font-mono text-gray-500 text-lg max-w-xl leading-relaxed mb-12 border-l-4 border-tdx-red pl-8 backdrop-blur-sm">
+          <p className="font-mono text-gray-500 dark:text-gray-300 text-lg max-w-xl leading-relaxed mb-12 border-l-4 border-tdx-red pl-8 backdrop-blur-sm">
             // TDX architects the neural infrastructure for the next generation of enterprise. 
             We build autonomous digital entities that think, adapt, and scale.
           </p>
@@ -249,7 +249,7 @@ export const HeroAI: React.FC = () => {
               <Fingerprint size={32} strokeWidth={1} />
               <div>
                 <p>SECURE_CONNECTION</p>
-                <p className="text-black">ENCRYPTED // 2048-BIT</p>
+                <p className="text-black dark:text-white">ENCRYPTED // 2048-BIT</p>
               </div>
             </div>
           </div>

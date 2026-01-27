@@ -68,15 +68,15 @@ const Logos = [
 
 export const Marquee: React.FC = () => {
   return (
-    <div className="relative py-24 bg-white overflow-hidden z-20 border-b border-gray-100">
+    <div className="relative py-24 bg-white dark:bg-neutral-950 overflow-hidden z-20 border-b border-gray-100 dark:border-white/10">
       {/* Fade Edges */}
-      <div className="absolute left-0 top-0 w-20 md:w-40 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 w-20 md:w-40 h-full bg-gradient-to-r from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
 
       {/* Label - Positioned cleanly inside the section */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-100 bg-gray-50/80 backdrop-blur-sm z-30">
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/5 backdrop-blur-sm z-30">
          <div className="w-1.5 h-1.5 rounded-full bg-tdx-red animate-pulse" />
-        <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase">Trusted By Industry Leaders</span>
+        <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 dark:text-gray-300 uppercase">Trusted By Industry Leaders</span>
       </div>
 
       <div className="flex overflow-hidden group mt-8">
@@ -87,7 +87,7 @@ export const Marquee: React.FC = () => {
               key={i} 
               className="mx-12 opacity-30 hover:opacity-100 transition-all duration-500 cursor-pointer grayscale hover:grayscale-0 group/logo"
             >
-              <svg height="30" width="200" className="text-black group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible">
+              <svg height="30" width="200" className="text-black dark:text-white group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible">
                 {logo.path}
               </svg>
             </div>
@@ -101,7 +101,7 @@ export const Marquee: React.FC = () => {
               key={i} 
               className="mx-12 opacity-30 hover:opacity-100 transition-all duration-500 cursor-pointer grayscale hover:grayscale-0 group/logo"
             >
-              <svg height="30" width="200" className="text-black group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible">
+              <svg height="30" width="200" className="text-black dark:text-white group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible">
                 {logo.path}
               </svg>
             </div>
@@ -110,7 +110,7 @@ export const Marquee: React.FC = () => {
       </div>
       
       {/* Decorative Scanline */}
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-100">
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-100 dark:bg-white/10">
         <div className="absolute top-0 left-0 h-full w-32 bg-tdx-red/20 blur-[2px] animate-[marquee_5s_linear_infinite]" />
       </div>
     </div>

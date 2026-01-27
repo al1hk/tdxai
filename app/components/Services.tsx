@@ -145,18 +145,18 @@ export const Services: React.FC = () => {
   });
 
   return (
-    <section ref={containerRef} id="services" className="bg-white py-24 lg:py-32 relative z-10 overflow-hidden">
+    <section ref={containerRef} id="services" className="bg-white dark:bg-neutral-950 py-24 lg:py-32 relative z-10 overflow-hidden">
       
       {/* Background Ambience */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-red-50/50 rounded-full blur-[120px]" />
-         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-neutral-100/50 rounded-full blur-[100px]" />
+         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-red-50/50 dark:bg-tdx-red/10 rounded-full blur-[120px]" />
+         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-neutral-100/50 dark:bg-white/5 rounded-full blur-[100px]" />
       </div>
 
       <SectionWrapper>
         
         {/* Editorial Header */}
-        <div className="relative mb-24 flex flex-col md:flex-row justify-between items-end border-b border-black/5 pb-12">
+        <div className="relative mb-24 flex flex-col md:flex-row justify-between items-end border-b border-black/5 dark:border-white/10 pb-12">
             <div className="max-w-4xl relative z-10">
                 <div className="flex items-center gap-3 mb-8">
                     <span className="flex items-center justify-center w-6 h-6 border border-red-600 rounded-full text-red-600">
@@ -164,21 +164,21 @@ export const Services: React.FC = () => {
                     </span>
                     <span className="font-mono text-xs uppercase tracking-[0.3em] text-red-600 font-bold">System Manifest v2.0</span>
                 </div>
-                <h2 className="text-6xl md:text-8xl font-serif text-black leading-[0.85] tracking-tighter">
+                <h2 className="text-6xl md:text-8xl font-serif text-black dark:text-white leading-[0.85] tracking-tighter">
                   Core <br/>
                   <span className="italic text-neutral-300 font-light">Capabilities</span><span className="text-red-600">.</span> 
                 </h2>
             </div>
 
             <div className="hidden md:flex flex-col items-end gap-4 pb-2">
-                <div className="flex items-center gap-3 px-4 py-2 bg-neutral-50 rounded-full border border-neutral-100">
+                <div className="flex items-center gap-3 px-4 py-2 bg-neutral-50 dark:bg-white/5 rounded-full border border-neutral-100 dark:border-white/10">
                   <div className="relative w-2 h-2">
                     <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75" />
                     <div className="relative w-2 h-2 bg-red-600 rounded-full" />
                   </div>
-                  <span className="font-bold font-mono text-[10px] text-neutral-600 tracking-widest">GRID ONLINE</span>
+                  <span className="font-bold font-mono text-[10px] text-neutral-600 dark:text-neutral-300 tracking-widest">GRID ONLINE</span>
                 </div>
-                <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest text-right leading-relaxed">
+                <p className="font-mono text-[10px] text-neutral-400 dark:text-neutral-400 uppercase tracking-widest text-right leading-relaxed">
                     Interactive Grid System<br/>
                     Select module for details
                 </p>
@@ -186,7 +186,7 @@ export const Services: React.FC = () => {
         </div>
 
         {/* The Dossier Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/5 bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/5 dark:border-white/10 bg-white dark:bg-neutral-950">
           {services.map((service, index) => {
             // Grid Layout Logic
             const isFeatured = index === 0;
@@ -197,10 +197,10 @@ export const Services: React.FC = () => {
             const isExpanded = expandedIndex === index;
             const isActive = isHovered || isExpanded;
             
-            let gridClass = 'min-h-[380px] border-r border-b border-black/5';
-            if (isFeatured) gridClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[500px] lg:min-h-[760px] border-r border-b border-black/5';
-            else if (isWide) gridClass = 'lg:col-span-2 min-h-[380px] border-r border-b border-black/5';
-            else if (isLast) gridClass = 'lg:col-span-3 min-h-[340px] lg:flex-row lg:items-center border-r border-b border-black/5';
+            let gridClass = 'min-h-[380px] border-r border-b border-black/5 dark:border-white/10';
+            if (isFeatured) gridClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[500px] lg:min-h-[760px] border-r border-b border-black/5 dark:border-white/10';
+            else if (isWide) gridClass = 'lg:col-span-2 min-h-[380px] border-r border-b border-black/5 dark:border-white/10';
+            else if (isLast) gridClass = 'lg:col-span-3 min-h-[340px] lg:flex-row lg:items-center border-r border-b border-black/5 dark:border-white/10';
 
             return (
               <motion.div 
@@ -213,7 +213,7 @@ export const Services: React.FC = () => {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer bg-white transition-colors duration-500
+                className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer bg-white dark:bg-neutral-950 transition-colors duration-500
                   ${gridClass}
                 `}
               >
@@ -279,7 +279,7 @@ export const Services: React.FC = () => {
                               : isLast 
                                 ? 'left-[40%] top-1/2 -translate-y-1/2 opacity-[0.03] scale-125 group-hover:opacity-10'
                                 : 'right-[-10%] bottom-[-10%] opacity-[0.03] group-hover:opacity-10 scale-150 group-hover:scale-125 rotate-12'}
-                          ${isActive ? 'text-white' : 'text-black'}
+                          ${isActive ? 'text-white' : 'text-black'} dark:text-white
                       `}>
                           <service.icon size={isFeatured ? 480 : 280} strokeWidth={0.5} />
                       </div>
@@ -291,7 +291,7 @@ export const Services: React.FC = () => {
                             : isLast 
                                 ? 'text-4xl md:text-5xl lg:text-6xl mb-4 lg:mb-0' 
                                 : 'text-3xl md:text-4xl mb-4'}
-                          ${isActive ? 'text-white' : 'text-black'}
+                          ${isActive ? 'text-white' : 'text-black'} dark:text-white
                       `}>
                           {service.title}
                       </h3>
@@ -303,7 +303,7 @@ export const Services: React.FC = () => {
                               ${isFeatured 
                                 ? 'text-lg md:text-xl text-neutral-500 max-w-lg' 
                                 : 'text-sm text-neutral-500 max-w-[90%]'}
-                              ${isActive ? 'text-white/80' : 'text-neutral-500'}
+                              ${isActive ? 'text-white/80' : 'text-neutral-500 dark:text-neutral-300'}
                           `}>
                               {service.description}
                           </p>

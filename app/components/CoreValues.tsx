@@ -26,9 +26,9 @@ const values = [
 
 export const CoreValues: React.FC = () => {
   return (
-    <section className="py-40 bg-white relative z-10 overflow-hidden">
+    <section className="py-40 bg-white dark:bg-neutral-950 relative z-10 overflow-hidden">
       {/* Background Mesh */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:24px_24px]" />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         
@@ -37,11 +37,11 @@ export const CoreValues: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-24 md:flex justify-between items-end border-b border-black/10 pb-8"
+          className="mb-24 md:flex justify-between items-end border-b border-black/10 dark:border-white/10 pb-8"
         >
           <div>
             <span className="font-mono text-tdx-red text-xs tracking-[0.2em] uppercase mb-4 block">Our DNA</span>
-            <h2 className="font-display font-bold text-5xl md:text-7xl tracking-tighter text-black">
+            <h2 className="font-display font-bold text-5xl md:text-7xl tracking-tighter text-black dark:text-white">
               CORE <span className="text-gray-400">PHILOSOPHY</span>
             </h2>
           </div>
@@ -64,32 +64,32 @@ export const CoreValues: React.FC = () => {
               className="group relative"
             >
               {/* Card Container */}
-              <div className="relative h-full p-8 md:p-10 rounded-3xl bg-gray-50/50 hover:bg-white transition-colors duration-500 border border-transparent hover:border-black/5 overflow-hidden">
+              <div className="relative h-full p-8 md:p-10 rounded-3xl bg-gray-50/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 transition-colors duration-500 border border-transparent hover:border-black/5 dark:hover:border-white/10 overflow-hidden">
                 
                 {/* Hover Gradient Orb */}
                 <div className={`absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br ${item.gradient} rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
 
                 {/* Big Number */}
-                <div className="font-display font-bold text-8xl md:text-9xl text-gray-200/50 group-hover:text-black/5 transition-colors duration-500 mb-8 select-none">
+                <div className="font-display font-bold text-8xl md:text-9xl text-gray-200/50 dark:text-white/10 group-hover:text-black/5 dark:group-hover:text-white/10 transition-colors duration-500 mb-8 select-none">
                   {item.id}
                 </div>
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <h3 className="font-display font-bold text-3xl mb-4 text-gray-900 group-hover:text-tdx-red transition-colors duration-300">
+                  <h3 className="font-display font-bold text-3xl mb-4 text-gray-900 dark:text-white group-hover:text-tdx-red transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <div className="h-[2px] w-12 bg-black/10 mb-6 group-hover:w-full group-hover:bg-tdx-red transition-all duration-500 ease-out" />
-                  <p className="text-gray-500 text-base leading-relaxed font-light group-hover:text-gray-900 transition-colors duration-300">
+                  <div className="h-[2px] w-12 bg-black/10 dark:bg-white/10 mb-6 group-hover:w-full group-hover:bg-tdx-red transition-all duration-500 ease-out" />
+                  <p className="text-gray-500 dark:text-gray-300 text-base leading-relaxed font-light group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
                     {item.description}
                   </p>
                 </div>
 
                 {/* Kinetic Border Lines */}
-                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-black/5">
+                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-black/5 dark:bg-white/10">
                     <div className="h-full bg-tdx-red w-0 group-hover:w-full transition-all duration-1000 ease-in-out" />
                 </div>
-                <div className="absolute top-0 right-0 w-[2px] h-full bg-black/5">
+                <div className="absolute top-0 right-0 w-[2px] h-full bg-black/5 dark:bg-white/10">
                     <div className="w-full bg-tdx-red h-0 group-hover:h-full transition-all duration-1000 ease-in-out delay-100" />
                 </div>
 
