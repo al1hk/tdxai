@@ -4,6 +4,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Moon, Sun } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import Image from 'next/image';
+import logo from '../assets/cropped-TDX_LOGO-2.png';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,6 +41,9 @@ export const Navbar: React.FC = () => {
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Work', href: '#work' },
+    { name: 'Pricing', href: '#pricing' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (
@@ -50,22 +55,15 @@ export const Navbar: React.FC = () => {
         className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
       >
         <div className={`
-          flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500
+          flex items-center justify-between px-4 md:px-6 py-3 rounded-full transition-colors duration-300
           ${scrolled 
-            ? 'w-full max-w-5xl bg-white/70 dark:bg-neutral-950/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 dark:border-white/10' 
-            : 'w-full max-w-7xl bg-transparent'
+            ? 'w-full max-w-5xl bg-white/90 dark:bg-neutral-950/90 shadow-sm border border-black/5 dark:border-white/10 backdrop-blur-md' 
+            : 'w-full max-w-5xl bg-transparent border border-transparent'
           }
         `}>
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 flex items-center justify-center overflow-hidden bg-black text-white rounded-full font-bold font-display cursor-hover">
-              <span className="relative z-10 group-hover:-translate-y-full transition-transform duration-300 block">T</span>
-              <span className="absolute z-10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 block text-tdx-red">T</span>
-              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <span className={`font-display font-bold text-xl tracking-tight ${scrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
-              TDX
-            </span>
+          <a href="#" className="flex items-center group">
+            <Image src={logo} alt="TDX" className="h-8 md:h-10 w-auto object-contain" />
           </a>
 
           {/* Desktop Links */}

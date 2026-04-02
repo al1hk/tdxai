@@ -27,10 +27,9 @@ const services = [
     title: "AI Driven Services",
     description: "Deep learning models & neural integration.",
     details: [
-      "Neural Architecture Search", 
-      "Large Language Model Tuning", 
-      "Computer Vision Pipelines", 
-      "Edge AI Deployment"
+      "Starter: Basic AI integrations for small apps", 
+      "Growth: Custom AI models + integration", 
+      "Enterprise: Advanced AI systems, ongoing tuning"
     ],
     tag: "ML_CORE",
     icon: BrainCircuit
@@ -39,10 +38,9 @@ const services = [
     title: "Business Automation",
     description: "Workflow orchestration & data sync.",
     details: [
-      "RPA Implementation", 
-      "Enterprise Workflows", 
-      "Custom ETL Pipelines", 
-      "Legacy System Bridging"
+      "Basic Automation: Single no-code/low-code workflow", 
+      "Advanced Automation: AI + data sync + orchestration", 
+      "Enterprise Automation: Full system automation"
     ],
     tag: "AUTO_OPS",
     icon: Workflow
@@ -51,10 +49,9 @@ const services = [
     title: "Blockchain Dev",
     description: "Smart contracts & decentralized ledgers.",
     details: [
-      "Solidity Smart Contracts", 
-      "DeFi Protocol Engineering", 
-      "NFT Marketplace Architecture", 
-      "Layer 2 Scaling Solutions"
+      "Prototype: Smart contract, testnet deployment", 
+      "Launch-Ready: Mainnet, audits, dashboards", 
+      "Enterprise: Multi-chain, advanced integration"
     ],
     tag: "WEB3_SEC",
     icon: Blocks
@@ -63,10 +60,9 @@ const services = [
     title: "Web App Development",
     description: "Scalable SaaS & cloud architectures.",
     details: [
-      "React/Next.js Ecosystems", 
-      "Serverless Cloud Infrastructure", 
-      "Progressive Web Apps (PWA)", 
-      "Real-time WebSocket Systems"
+      "MVP Launch: Core feature web app", 
+      "Scale Plan: Full SaaS platform", 
+      "Enterprise: High-security SaaS with maintenance"
     ],
     tag: "FULL_STACK",
     icon: Globe
@@ -75,10 +71,9 @@ const services = [
     title: "Mobile Ecosystems",
     description: "Native iOS/Android performance.",
     details: [
-      "React Native Cross-Platform", 
-      "Swift/Kotlin Native Modules", 
-      "App Store Optimization (ASO)", 
-      "Offline-First Architecture"
+      "Prototype App: Core features, single platform", 
+      "Cross-Platform: iOS & Android apps", 
+      "Enterprise App: Advanced features, integrations"
     ],
     tag: "NATIVE_OS",
     icon: Smartphone
@@ -87,10 +82,9 @@ const services = [
     title: "AI Agents",
     description: "Autonomous decision-making entities.",
     details: [
-      "Autonomous Task Execution", 
-      "Multi-Agent Swarm Intelligence", 
-      "Goal-Oriented Planning", 
-      "Human-in-the-loop Systems"
+      "Basic Agent: Pre-trained AI assistant", 
+      "Advanced Agent: Custom decision-making capabilities", 
+      "Research/Enterprise: RAG, memory-based AI agents"
     ],
     tag: "AGENT_X",
     icon: Bot
@@ -99,10 +93,9 @@ const services = [
     title: "WordPress Enterprise",
     description: "Custom headless CMS solutions.",
     details: [
-      "Headless WP + GraphQL", 
-      "Custom Gutenberg Blocks", 
-      "High-Performance Caching", 
-      "Enterprise Security Hardening"
+      "Starter Site: Basic WordPress website", 
+      "Business Site: eCommerce/membership site", 
+      "Enterprise Site: Multi-language, scalable WordPress"
     ],
     tag: "CMS_PRO",
     icon: LayoutTemplate
@@ -111,10 +104,9 @@ const services = [
     title: "SEO Intelligence",
     description: "Algorithmic ranking dominance.",
     details: [
-      "Semantic Core Analysis", 
-      "Technical SEO Audits", 
-      "Programmatic SEO Generation", 
-      "SERP Feature Optimization"
+      "Basic SEO: Keyword & on-page SEO", 
+      "Growth SEO: Content & technical SEO", 
+      "Enterprise SEO: High-volume site SEO"
     ],
     tag: "SEARCH_AI",
     icon: Search
@@ -123,10 +115,9 @@ const services = [
     title: "Social Algorithms",
     description: "Data-driven engagement loops.",
     details: [
-      "Viral Loop Engineering", 
-      "Social Graph Analysis", 
-      "Content Recommendation Engines", 
-      "Growth Hacking Scripts"
+      "Starter: Content posting + calendar", 
+      "Growth: Strategy, design, tracking", 
+      "Enterprise: Ads, campaigns, analytics"
     ],
     tag: "VIRAL_NET",
     icon: Share2
@@ -156,31 +147,23 @@ export const Services: React.FC = () => {
       <SectionWrapper>
         
         {/* Editorial Header */}
-        <div className="relative mb-24 flex flex-col md:flex-row justify-between items-end border-b border-black/5 dark:border-white/10 pb-12">
+        <div className="relative mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/5 dark:border-white/10 pb-12">
             <div className="max-w-4xl relative z-10">
-                <div className="flex items-center gap-3 mb-8">
+                <div className="flex items-center gap-3 mb-6 md:mb-8">
                     <span className="flex items-center justify-center w-6 h-6 border border-red-600 rounded-full text-red-600">
                         <Scan size={12} />
                     </span>
-                    <span className="font-mono text-xs uppercase tracking-[0.3em] text-red-600 font-bold">System Manifest v2.0</span>
+                    <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-red-600 font-bold">What We Do</span>
                 </div>
-                <h2 className="text-6xl md:text-8xl font-serif text-black dark:text-white leading-[0.85] tracking-tighter">
+                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif text-black dark:text-white leading-[0.85] tracking-tighter">
                   Core <br/>
                   <span className="italic text-neutral-300 font-light">Capabilities</span><span className="text-red-600">.</span> 
                 </h2>
             </div>
 
             <div className="hidden md:flex flex-col items-end gap-4 pb-2">
-                <div className="flex items-center gap-3 px-4 py-2 bg-neutral-50 dark:bg-white/5 rounded-full border border-neutral-100 dark:border-white/10">
-                  <div className="relative w-2 h-2">
-                    <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75" />
-                    <div className="relative w-2 h-2 bg-red-600 rounded-full" />
-                  </div>
-                  <span className="font-bold font-mono text-[10px] text-neutral-600 dark:text-neutral-300 tracking-widest">GRID ONLINE</span>
-                </div>
                 <p className="font-mono text-[10px] text-neutral-400 dark:text-neutral-400 uppercase tracking-widest text-right leading-relaxed">
-                    Interactive Grid System<br/>
-                    Select module for details
+                    Click any service<br/>to explore details
                 </p>
             </div>
         </div>
@@ -197,10 +180,10 @@ export const Services: React.FC = () => {
             const isExpanded = expandedIndex === index;
             const isActive = isHovered || isExpanded;
             
-            let gridClass = 'min-h-[380px] border-r border-b border-black/5 dark:border-white/10';
-            if (isFeatured) gridClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[500px] lg:min-h-[760px] border-r border-b border-black/5 dark:border-white/10';
-            else if (isWide) gridClass = 'lg:col-span-2 min-h-[380px] border-r border-b border-black/5 dark:border-white/10';
-            else if (isLast) gridClass = 'lg:col-span-3 min-h-[340px] lg:flex-row lg:items-center border-r border-b border-black/5 dark:border-white/10';
+            let gridClass = 'min-h-[380px] border-r border-b border-black/5 dark:border-white/5';
+            if (isFeatured) gridClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[500px] lg:min-h-[760px] border-r border-b border-black/5 dark:border-white/5';
+            else if (isWide) gridClass = 'lg:col-span-2 min-h-[380px] border-r border-b border-black/5 dark:border-white/5';
+            else if (isLast) gridClass = 'lg:col-span-1 md:col-span-2 lg:col-span-3 min-h-[340px] lg:flex-row lg:items-center border-r border-b border-black/5 dark:border-white/5';
 
             return (
               <motion.div 
@@ -349,11 +332,6 @@ export const Services: React.FC = () => {
                     {/* Footer / Status Area */}
                     <div className={`mt-8 flex items-end justify-between relative z-10 ${isLast ? 'lg:mt-0 lg:justify-end lg:w-auto lg:gap-8' : ''}`}>
                           <div className={`hidden md:flex flex-wrap gap-2`}>
-                             {isActive && (
-                                <span className="font-mono text-[9px] text-white/60 uppercase tracking-widest animate-pulse">
-                                    System Active
-                                </span>
-                             )}
                           </div>
                           
                           {/* Corner Accent */}

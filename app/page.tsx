@@ -4,9 +4,10 @@ import { HeroAI } from './components/HeroAI';
 import { AIBg } from './components/AIBg';
 import { Services } from './components/Services';
 import { About } from './components/About';
+import { Pricing } from './components/Pricing';
 import { CaseStudies } from './components/CaseStudies';
 import { Testimonials } from './components/Testimonials';
-import { Footer } from './components/Footer';
+import { Contact } from './components/Contact';
 import { CustomCursor } from './components/CustomCursor';
 import { Marquee } from './components/Marquee';
 import { CoreValues } from './components/CoreValues';
@@ -24,10 +25,11 @@ const App: React.FC = () => {
         <CoreValues />
         <About />
         <Services />
+        <Pricing />
         <CaseStudies />
         <Testimonials />
+        <Contact />
       </main>
-      <Footer />
     </div>
   );
 };

@@ -74,9 +74,9 @@ export const Marquee: React.FC = () => {
       <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
 
       {/* Label - Positioned cleanly inside the section */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/5 backdrop-blur-sm z-30">
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/5 backdrop-blur-sm z-30 w-max">
          <div className="w-1.5 h-1.5 rounded-full bg-tdx-red animate-pulse" />
-        <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 dark:text-gray-300 uppercase">Trusted By Industry Leaders</span>
+        <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 dark:text-gray-300 uppercase whitespace-nowrap">Trusted By Industry Leaders</span>
       </div>
 
       <div className="flex overflow-hidden group mt-8">
@@ -85,9 +85,9 @@ export const Marquee: React.FC = () => {
           {[...Logos, ...Logos].map((logo, i) => (
             <div 
               key={i} 
-              className="mx-12 opacity-30 hover:opacity-100 transition-all duration-500 cursor-pointer grayscale hover:grayscale-0 group/logo"
+              className="mx-6 md:mx-12 opacity-30 hover:opacity-100 transition-all duration-500 cursor-pointer grayscale hover:grayscale-0 group/logo"
             >
-              <svg height="30" width="200" className="text-black dark:text-white group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible">
+              <svg height="30" width="160" className="text-black dark:text-white group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible scale-75 md:scale-100">
                 {logo.path}
               </svg>
             </div>
@@ -99,9 +99,9 @@ export const Marquee: React.FC = () => {
            {[...Logos, ...Logos].map((logo, i) => (
             <div 
               key={i} 
-              className="mx-12 opacity-30 hover:opacity-100 transition-all duration-500 cursor-pointer grayscale hover:grayscale-0 group/logo"
+              className="mx-6 md:mx-12 opacity-30 hover:opacity-100 transition-all duration-500 cursor-pointer grayscale hover:grayscale-0 group/logo"
             >
-              <svg height="30" width="200" className="text-black dark:text-white group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible">
+              <svg height="30" width="160" className="text-black dark:text-white group-hover/logo:text-tdx-red transition-colors duration-500 overflow-visible scale-75 md:scale-100">
                 {logo.path}
               </svg>
             </div>

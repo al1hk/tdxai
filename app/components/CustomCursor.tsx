@@ -80,7 +80,7 @@ export const CustomCursor: React.FC = () => {
     <>
       {/* Primary Dot - Instant Follow */}
       <motion.div
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-white rounded-full pointer-events-none z-[9999] mix-blend-exclusion"
+        className="fixed top-0 left-0 w-2.5 h-2.5 bg-tdx-red rounded-full pointer-events-none z-[9999] shadow-md"
         style={{ x: mouseX, y: mouseY, translateX: '-50%', translateY: '-50%' }}
         animate={{
           opacity: isVisible ? 1 : 0,
@@ -91,15 +91,16 @@ export const CustomCursor: React.FC = () => {
 
       {/* Secondary Ring - Smooth Follow & Transform */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998] mix-blend-exclusion border border-white flex items-center justify-center"
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998] border border-tdx-red shadow-sm flex items-center justify-center"
         style={{ x: cursorX, y: cursorY, translateX: '-50%', translateY: '-50%' }}
         animate={{
           opacity: isVisible ? 1 : 0,
           width: hoverState === 'pointer' ? 60 : 32,
           height: hoverState === 'pointer' ? 60 : 32,
-          backgroundColor: hoverState === 'pointer' ? 'white' : 'transparent',
+          backgroundColor: hoverState === 'pointer' ? 'rgba(255, 31, 31, 0.1)' : 'transparent',
           scale: isClicking ? 0.8 : 1,
-          borderWidth: hoverState === 'pointer' ? '0px' : '1px',
+          borderWidth: hoverState === 'pointer' ? '2px' : '1px',
+          borderColor: hoverState === 'pointer' ? '#FF1F1F' : 'rgba(255, 31, 31, 0.5)',
         }}
         transition={{ 
           type: "spring", 

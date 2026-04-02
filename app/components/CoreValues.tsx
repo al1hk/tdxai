@@ -26,9 +26,9 @@ const values = [
 
 export const CoreValues: React.FC = () => {
   return (
-    <section className="py-40 bg-white dark:bg-neutral-950 relative z-10 overflow-hidden">
+    <section className="py-20 md:py-40 bg-white dark:bg-neutral-950 relative z-10 overflow-hidden">
       {/* Background Mesh */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:16px_16px] md:bg-[size:24px_24px]" />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         
@@ -37,11 +37,11 @@ export const CoreValues: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-24 md:flex justify-between items-end border-b border-black/10 dark:border-white/10 pb-8"
+          className="mb-16 md:mb-24 md:flex justify-between items-end border-b border-black/10 dark:border-white/10 pb-8"
         >
           <div>
             <span className="font-mono text-tdx-red text-xs tracking-[0.2em] uppercase mb-4 block">Our DNA</span>
-            <h2 className="font-display font-bold text-5xl md:text-7xl tracking-tighter text-black dark:text-white">
+            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-7xl tracking-tighter text-black dark:text-white">
               CORE <span className="text-gray-400">PHILOSOPHY</span>
             </h2>
           </div>
@@ -70,7 +70,7 @@ export const CoreValues: React.FC = () => {
                 <div className={`absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br ${item.gradient} rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
 
                 {/* Big Number */}
-                <div className="font-display font-bold text-8xl md:text-9xl text-gray-200/50 dark:text-white/10 group-hover:text-black/5 dark:group-hover:text-white/10 transition-colors duration-500 mb-8 select-none">
+                <div className="font-display font-bold text-7xl md:text-9xl text-gray-200/50 dark:text-white/10 group-hover:text-black/5 dark:group-hover:text-white/10 transition-colors duration-500 mb-6 md:mb-8 select-none">
                   {item.id}
                 </div>
 

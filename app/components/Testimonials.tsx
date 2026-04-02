@@ -49,20 +49,20 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ data }: { data: typeof testimonials[0] }) => (
-  <div className="w-[350px] md:w-[450px] bg-gray-50 dark:bg-white/5 p-8 rounded-2xl border border-gray-100 dark:border-white/10 flex-shrink-0 mx-4 whitespace-normal flex flex-col justify-between hover:border-tdx-red/30 hover:bg-white dark:hover:bg-white/10 hover:shadow-lg hover:shadow-gray-100 transition-all duration-300 group/card cursor-default">
+  <div className="w-[300px] sm:w-[350px] md:w-[450px] bg-neutral-50 dark:bg-white/5 p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-white/10 flex-shrink-0 mx-3 md:mx-4 whitespace-normal flex flex-col justify-between hover:border-tdx-red/30 hover:bg-white dark:hover:bg-white/10 hover:shadow-lg hover:shadow-neutral-200 transition-all duration-300 group/card cursor-default">
     <div>
-      <Quote className="w-8 h-8 text-gray-300 dark:text-white/30 mb-6 fill-current group-hover/card:text-tdx-red transition-colors" />
-      <p className="font-display text-lg leading-relaxed text-gray-800 dark:text-white mb-6">
+      <Quote className="w-6 h-6 md:w-8 md:h-8 text-neutral-300 dark:text-white/30 mb-4 md:mb-6 fill-current group-hover/card:text-tdx-red transition-colors" />
+      <p className="font-display text-base md:text-lg leading-relaxed text-neutral-900 dark:text-white mb-4 md:mb-6">
         "{data.quote}"
       </p>
     </div>
-    <div className="flex items-center gap-4 border-t border-gray-200 dark:border-white/10 pt-6 mt-auto">
-      <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-mono font-bold text-sm">
+    <div className="flex items-center gap-4 border-t border-neutral-200 dark:border-white/10 pt-4 md:pt-6 mt-auto">
+      <div className="w-10 h-10 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-mono font-bold text-sm">
         {data.author[0]}
       </div>
       <div>
-        <div className="font-bold text-sm text-gray-900 dark:text-white font-display">{data.author}</div>
-        <div className="flex items-center gap-2 text-xs font-mono text-gray-500 dark:text-gray-300 uppercase">
+        <div className="font-bold text-sm text-neutral-900 dark:text-white font-display">{data.author}</div>
+        <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase">
           <span className="text-tdx-red">{data.role}</span>
           <span>//</span>
           <span>{data.company}</span>
@@ -74,16 +74,16 @@ const TestimonialCard = ({ data }: { data: typeof testimonials[0] }) => (
 
 export const Testimonials: React.FC = () => {
   return (
-    <div id="testimonials" className="bg-white dark:bg-neutral-950 py-32 border-t border-gray-100 dark:border-white/10 relative overflow-hidden">
+    <div id="testimonials" className="bg-white dark:bg-neutral-950 py-16 md:py-32 border-t border-neutral-100 dark:border-white/10 relative overflow-hidden transition-colors duration-300">
       
       {/* Label */}
-      <div className="mb-20 flex justify-center">
-        <div className="px-5 py-2 rounded-full border border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 flex items-center gap-3">
+      <div className="mb-12 md:mb-20 flex justify-center">
+        <div className="px-5 py-2 rounded-full border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 flex items-center gap-3">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tdx-red opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-tdx-red"></span>
           </span>
-          <span className="font-mono text-[11px] font-bold tracking-widest uppercase text-gray-500 dark:text-gray-300">Live Client Feed</span>
+          <span className="font-mono text-[11px] font-bold tracking-widest uppercase text-neutral-500 dark:text-neutral-300">Live Client Feed</span>
         </div>
       </div>
 
@@ -94,21 +94,21 @@ export const Testimonials: React.FC = () => {
          <div className="absolute top-0 right-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
 
          {/* Stream 1 */}
-         <div className="flex animate-marquee [animation-duration:60s] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
+         <div className="flex animate-marquee [animation-duration:60s] group-hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
             {testimonials.map((t) => (
                 <TestimonialCard key={t.id} data={t} />
             ))}
          </div>
          
          {/* Stream 2 (Duplicate for loop) */}
-         <div className="flex animate-marquee [animation-duration:60s] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
+         <div className="flex animate-marquee [animation-duration:60s] group-hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
             {testimonials.map((t) => (
                 <TestimonialCard key={`dup-${t.id}`} data={t} />
             ))}
          </div>
          
          {/* Stream 3 (Extra buffer for wide screens) */}
-         <div className="flex animate-marquee [animation-duration:60s] hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
+         <div className="flex animate-marquee [animation-duration:60s] group-hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">
             {testimonials.map((t) => (
                 <TestimonialCard key={`dup2-${t.id}`} data={t} />
             ))}

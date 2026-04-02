@@ -12,6 +12,8 @@ export interface CaseStudy {
   title: string;
   category: string;
   image: string;
+  link?: string;
+  description?: string;
 }
 
 export interface Testimonial {

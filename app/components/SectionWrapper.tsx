@@ -11,7 +11,7 @@ interface Props {
 
 export const SectionWrapper: React.FC<Props> = ({ children, className = "", id }) => {
   return (
-    <section id={id} className={`py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto ${className}`}>
+    <section id={id} className={`py-12 md:py-24 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto ${className}`}>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

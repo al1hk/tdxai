@@ -74,7 +74,7 @@ export const HeroAI: React.FC = () => {
 
     // Particles Configuration
     const particles: {x: number, y: number, vx: number, vy: number, size: number}[] = [];
-    const particleCount = width > 1200 ? 70 : 55;
+    const particleCount = width > 1200 ? 35 : 25;
     const connectionDistance = 180;
     const mouseInteractionDistance = 250;
     const connectionDistanceSq = connectionDistance * connectionDistance;
@@ -185,11 +185,11 @@ export const HeroAI: React.FC = () => {
     <section ref={ref} className="relative min-h-[110vh] flex flex-col justify-center overflow-hidden bg-white dark:bg-neutral-950 pt-24">
       
       {/* --- NEW DYNAMIC BACKGROUND LAYERS --- */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         
-        {/* 1. Pulsing Red Glows (Ambient) */}
-        <div className="absolute top-0 left-0 w-[60vw] h-[60vw] bg-tdx-red/5 rounded-full blur-[150px] animate-pulse -translate-x-1/2 -translate-y-1/2 mix-blend-multiply" />
-        <div className="absolute bottom-0 right-0 w-[50vw] h-[50vw] bg-tdx-red/5 rounded-full blur-[150px] animate-pulse translate-x-1/4 translate-y-1/4 delay-700 mix-blend-multiply" />
+        {/* 1. Pulsing Red Glows (Ambient) - Optimized */}
+        <div className="absolute top-0 left-0 w-[80vw] h-[80vw] bg-[radial-gradient(circle,rgba(255,31,31,0.06)_0%,transparent_70%)] animate-pulse -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-[70vw] h-[70vw] bg-[radial-gradient(circle,rgba(255,31,31,0.05)_0%,transparent_70%)] animate-pulse translate-x-1/4 translate-y-1/4 delay-700" />
 
         {/* 2. Neural Network Canvas */}
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-100" />
@@ -216,50 +216,41 @@ export const HeroAI: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tdx-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-tdx-red"></span>
               </span>
-              <span className="font-mono text-xs font-bold tracking-widest uppercase">System Online</span>
+              <span className="font-mono text-xs font-bold tracking-widest uppercase">TDX Labs</span>
             </div>
             <div className="h-[1px] w-12 bg-black/10 dark:bg-white/10" />
-            <span className="font-mono text-xs text-gray-400">EST. 2024</span>
+            <span className="font-mono text-xs text-gray-400">Since 2014</span>
           </div>
 
-          <h1 className="font-display font-bold text-8xl md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-black dark:text-white mb-8 relative">
+          <h1 className="font-display font-bold text-6xl sm:text-7xl md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-black dark:text-white mb-8 relative">
             FUTURE <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-tdx-red to-black dark:to-white relative z-10">
               PRIME
-              <span className="absolute -top-4 -right-8 text-2xl text-black dark:text-white font-mono tracking-normal opacity-50 hidden md:inline-block">V.1</span>
             </span>
             {/* Subtle Text Glow Behind Headline */}
             <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-tdx-red/20 blur-[60px] -z-10" />
           </h1>
 
           <p className="font-mono text-gray-500 dark:text-gray-300 text-lg max-w-xl leading-relaxed mb-12 border-l-4 border-tdx-red pl-8 backdrop-blur-sm">
-            // TDX architects the neural infrastructure for the next generation of enterprise. 
-            We build autonomous digital entities that think, adapt, and scale.
+            We build innovative digital solutions that transform businesses. 
+            From AI-powered platforms to scalable SaaS — we deliver results.
           </p>
 
           <div className="flex flex-wrap items-center gap-6">
-            <button className="group relative px-10 py-5 bg-black text-white rounded-full overflow-hidden shadow-2xl shadow-black/20 hover:shadow-tdx-red/40 transition-all duration-300">
+            <a href="#contact" className="group relative px-10 py-5 bg-black text-white rounded-full overflow-hidden shadow-2xl shadow-black/20 hover:shadow-tdx-red/40 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-r from-tdx-red to-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative z-10 font-bold flex items-center gap-3 tracking-wide">
-                INITIALIZE <ArrowDown size={18} />
+                GET STARTED <ArrowDown size={18} />
               </span>
-            </button>
-            
-            <div className="flex items-center gap-4 text-xs font-mono text-gray-400">
-              <Fingerprint size={32} strokeWidth={1} />
-              <div>
-                <p>SECURE_CONNECTION</p>
-                <p className="text-black dark:text-white">ENCRYPTED // 2048-BIT</p>
-              </div>
-            </div>
+            </a>
           </div>
         </motion.div>
 
         {/* Right: Quantum Core Animation */}
-        <div className="relative h-[600px] w-full flex items-center justify-center lg:justify-end pointer-events-none">
+        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end pointer-events-none">
           <motion.div 
             style={{ rotate }}
-            className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px]"
+            className="relative w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[500px] md:h-[500px]"
           >
             {/* The Core Reactor */}
             <div className="absolute inset-0 preserve-3d">
@@ -268,43 +259,23 @@ export const HeroAI: React.FC = () => {
               <div className="absolute inset-4 border-[1px] border-dashed border-black/20 rounded-full animate-[spin_20s_linear_infinite_reverse]" />
               
               {/* Gyro Rings */}
-              <div className="absolute top-1/2 left-0 w-full h-[300px] -mt-[150px] border border-black/80 rounded-full animate-[spin_8s_linear_infinite] [transform:rotateX(70deg)] shadow-[0_0_30px_rgba(0,0,0,0.1)]" />
-              <div className="absolute top-0 left-1/2 h-full w-[300px] -ml-[150px] border border-tdx-red rounded-full animate-[spin_12s_linear_infinite] [transform:rotateY(70deg)] shadow-[0_0_30px_rgba(255,31,31,0.2)]" />
+              <div className="absolute top-1/2 left-0 w-full h-[300px] -mt-[150px] border border-black/40 dark:border-white/20 rounded-full animate-[spin_8s_linear_infinite] [transform:rotateX(70deg)]" />
+              <div className="absolute top-0 left-1/2 h-full w-[300px] -ml-[150px] border border-tdx-red/80 rounded-full animate-[spin_12s_linear_infinite] [transform:rotateY(70deg)]" />
               
               {/* Central Energy Mass */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-black via-gray-900 to-black rounded-full shadow-2xl flex items-center justify-center z-10 overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 mix-blend-overlay" />
-                <div className="w-full h-[1px] bg-tdx-red/50 absolute top-1/2 animate-pulse shadow-[0_0_20px_#ff0000]" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-black via-gray-900 to-black rounded-full shadow-xl flex items-center justify-center z-10 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30" />
+                <div className="w-full h-[1px] bg-tdx-red/50 absolute top-1/2 animate-pulse" />
                 <Zap className="text-white w-12 h-12 relative z-20 animate-pulse" />
               </div>
 
               {/* Satellites */}
               <div className="absolute inset-0 animate-[spin_4s_linear_infinite]">
-                 <div className="absolute top-0 left-1/2 w-4 h-4 bg-tdx-red rounded-full -translate-x-1/2 -translate-y-2 shadow-[0_0_20px_#ff0000]" />
+                 <div className="absolute top-0 left-1/2 w-4 h-4 bg-tdx-red rounded-full -translate-x-1/2 -translate-y-2" />
               </div>
             </div>
 
-            {/* Floating HUD Elements */}
-            <div className="absolute top-0 right-0 p-4 bg-white/90 backdrop-blur-md border border-gray-100 shadow-xl rounded-lg max-w-[150px] animate-bounce duration-[3000ms]">
-               <div className="flex items-center gap-2 mb-2">
-                 <CircleDashed size={14} className="animate-spin" />
-                 <span className="text-[10px] font-bold">PROCESSING</span>
-               </div>
-               <div className="font-mono text-xs text-gray-500">
-                 Analysing neural pathways...
-               </div>
-            </div>
 
-            <div className="absolute bottom-20 -left-10 p-4 bg-black text-white rounded-lg shadow-2xl max-w-[200px]">
-               <div className="text-[10px] font-mono text-gray-400 mb-1">OPTIMIZATION</div>
-               <div className="w-full bg-gray-800 h-1 rounded-full mb-2 overflow-hidden">
-                 <div className="bg-tdx-red h-full w-[92%] animate-pulse" />
-               </div>
-               <div className="flex justify-between text-xs font-bold">
-                 <span>EFFICIENCY</span>
-                 <span>99.9%</span>
-               </div>
-            </div>
 
           </motion.div>
         </div>

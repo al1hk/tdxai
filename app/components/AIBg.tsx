@@ -51,7 +51,7 @@ export const AIBg: React.FC = () => {
 
     // Grid of points
     const points: Point[] = [];
-    const spacing = width > 1200 ? 70 : 60;
+    const spacing = width > 1200 ? 120 : 90;
     const rows = Math.ceil(height / spacing);
     const cols = Math.ceil(width / spacing);
 
@@ -101,11 +101,11 @@ export const AIBg: React.FC = () => {
         if (distSq < maxDistSq) {
           const dist = Math.sqrt(distSq);
           const force = (maxDist - dist) / maxDist;
-          const angle = Math.atan2(dy, dx);
           const push = force * 20;
 
-          p.x += Math.cos(angle) * push * 0.1;
-          p.y += Math.sin(angle) * push * 0.1;
+          // Optimized directional vector math (cheaper than atan2 + sin/cos)
+          p.x += (dx / dist) * push * 0.1;
+          p.y += (dy / dist) * push * 0.1;
         }
 
         // Return to original position (spring)
