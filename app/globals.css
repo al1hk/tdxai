@@ -35,7 +35,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-  cursor: none;
+}
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
 }
 
 html {
@@ -95,4 +100,22 @@ html {
   100% {
     transform: translateY(-100%);
   }
+}
+
+/* Hide scrollbar for swipeable sections */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

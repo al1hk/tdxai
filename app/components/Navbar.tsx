@@ -1,18 +1,29 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight, Moon, Sun } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Moon, Sun, User, Layers, Briefcase, DollarSign, MessageSquare, Mail } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import Image from 'next/image';
 import logo from '../assets/cropped-TDX_LOGO-2.png';
 
+const navLinks = [
+  { name: 'About', href: '#about', icon: User },
+  { name: 'Services', href: '#services', icon: Layers },
+  { name: 'Work', href: '#work', icon: Briefcase },
+  { name: 'Pricing', href: '#pricing', icon: DollarSign },
+  { name: 'Testimonials', href: '#testimonials', icon: MessageSquare },
+  { name: 'Contact', href: '#contact', icon: Mail },
+];
+
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
   const scrolledRef = useRef(false);
   const { theme, toggleTheme } = useTheme();
 
+  // Scroll tracking for navbar background
   useEffect(() => {
     let rafId: number | null = null;
 
@@ -37,14 +48,39 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Work', href: '#work' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  // Active section tracking via IntersectionObserver
+  useEffect(() => {
+    const sectionIds = navLinks.map(link => link.href.replace('#', ''));
+    const observers: IntersectionObserver[] = [];
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(`#${entry.target.id}`);
+        }
+      });
+    };
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const observer = new IntersectionObserver(handleIntersect, {
+          rootMargin: '-40% 0px -55% 0px',
+          threshold: 0,
+        });
+        observer.observe(el);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach(obs => obs.disconnect());
+    };
+  }, []);
+
+  const scrollToContact = useCallback(() => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, []);
 
   return (
     <>
@@ -67,12 +103,17 @@ export const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center bg-gray-100/50 dark:bg-white/5 rounded-full px-2 p-1 border border-gray-200/50 dark:border-white/10 backdrop-blur-sm">
+          <div className="hidden md:flex items-center bg-gray-100/50 dark:bg-white/5 rounded-full px-2 p-1 border border-gray-200/50 dark:border-white/10 backdrop-blur-sm relative">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors relative cursor-hover rounded-full hover:bg-white/80 dark:hover:bg-white/10"
+                className={`px-5 py-2 text-sm font-medium transition-all duration-300 relative cursor-hover rounded-full
+                  ${activeSection === link.href
+                    ? 'text-white bg-tdx-red shadow-md shadow-tdx-red/30'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/10'
+                  }
+                `}
               >
                 {link.name}
               </a>
@@ -88,7 +129,10 @@ export const Navbar: React.FC = () => {
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-             <button className="flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-tdx-red rounded-full hover:bg-black transition-all duration-300 shadow-[0_0_20px_rgba(255,31,31,0.3)] hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] group cursor-hover">
+             <button
+              onClick={scrollToContact}
+              className="flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-tdx-red rounded-full hover:bg-black transition-all duration-300 shadow-[0_0_20px_rgba(255,31,31,0.3)] hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] group cursor-hover"
+            >
               Start Project
               <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-300" />
             </button>
@@ -113,30 +157,56 @@ export const Navbar: React.FC = () => {
             exit={{ opacity: 0, scale: 0.95 }}
             className="fixed inset-0 z-40 bg-white dark:bg-neutral-950 pt-24 px-6 flex flex-col items-center"
           >
-            {navLinks.map((link, i) => (
-              <motion.a
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-4xl font-display font-bold text-gray-900 dark:text-white mb-8 hover:text-tdx-red transition-colors"
+            {navLinks.map((link, i) => {
+              const Icon = link.icon;
+              const isActive = activeSection === link.href;
+              return (
+                <motion.a
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-4 text-3xl font-display font-bold mb-6 transition-colors duration-200
+                    ${isActive
+                      ? 'text-tdx-red'
+                      : 'text-gray-900 dark:text-white hover:text-tdx-red'
+                    }
+                  `}
+                >
+                  <span className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all duration-200
+                    ${isActive
+                      ? 'bg-tdx-red/10 border-tdx-red/30 text-tdx-red'
+                      : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-400'
+                    }
+                  `}>
+                    <Icon size={20} />
+                  </span>
+                  {link.name}
+                </motion.a>
+              );
+            })}
+
+            <div className="flex items-center gap-4 mt-4 w-full max-w-xs">
+              <button
+                type="button"
+                aria-label="Toggle dark mode"
+                onClick={toggleTheme}
+                className="flex-1 px-6 py-4 text-base font-bold rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white"
               >
-                {link.name}
-              </motion.a>
-            ))}
-            <button
-              type="button"
-              aria-label="Toggle dark mode"
-              onClick={toggleTheme}
-              className="mt-2 mb-8 w-full max-w-xs px-6 py-4 text-lg font-bold rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white"
-            >
-              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-            </button>
-             <button className="w-full max-w-xs mt-8 px-6 py-4 text-lg font-bold text-white bg-tdx-red rounded-full shadow-lg">
-              Start Project
-            </button>
+                {theme === 'dark' ? '☀ Light' : '🌙 Dark'}
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setTimeout(scrollToContact, 300);
+                }}
+                className="flex-1 px-6 py-4 text-base font-bold text-white bg-tdx-red rounded-full shadow-lg"
+              >
+                Start Project
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

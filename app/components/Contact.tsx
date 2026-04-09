@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Mail, Phone, MapPin, Send, Sparkles, CheckCircle2, ChevronDown, Facebook, Linkedin, Instagram } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Send, Sparkles, CheckCircle2, ChevronDown, Facebook, Linkedin, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../assets/cropped-TDX_LOGO-2.png';
 
@@ -216,18 +216,7 @@ export const Contact: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Phone */}
-                <div className="group flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 flex items-center justify-center group-hover:bg-tdx-red group-hover:border-tdx-red transition-all duration-300 shrink-0">
-                    <Phone size={18} className="text-neutral-500 group-hover:text-white transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest mb-1">Phone</p>
-                    <a href="tel:+15550000000" className="font-display font-semibold text-base md:text-lg text-black dark:text-white hover:text-tdx-red transition-colors">
-                      +1 (555) 000-0000
-                    </a>
-                  </div>
-                </div>
+
 
                 {/* Location */}
                 <div className="group flex items-start gap-4">
