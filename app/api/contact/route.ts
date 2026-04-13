@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       from: 'TDX Inquiries <onboarding@resend.dev>', // You can change this to your registered domain later
       to: ['hello@tdx.ai'], // Deliver straight to the client
       subject: `New Project Inquiry from ${name}`,
-      reply_to: email, // This allows the client to natively hit "Reply" to the sender in Gmail
+      replyTo: email, // This allows the client to natively hit "Reply" to the sender in Gmail
       html: `
         <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; color: #333;">
           <h2 style="color: #000; border-bottom: 2px solid #eee; padding-bottom: 10px;">
