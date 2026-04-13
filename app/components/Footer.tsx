@@ -55,10 +55,6 @@ export const Footer: React.FC = () => {
               hello@tdx.ai <br />
               +1 (555) 000-0000
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              100 Innovation Dr.<br />
-              San Francisco, CA 94103
-            </p>
           </div>
         </div>
 

@@ -213,10 +213,10 @@ export const Pricing: React.FC = () => {
   return (
     <section id="pricing" className="bg-white dark:bg-neutral-950 py-24 lg:py-36 relative z-10 overflow-hidden">
       
-      {/* Background Ambience */}
+      {/* Background Ambience - Optimized for mobile */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[15%] left-[-15%] w-[700px] h-[700px] bg-red-50/40 dark:bg-tdx-red/[0.06] rounded-full blur-[150px]" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-neutral-100/60 dark:bg-white/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute top-[15%] left-[-15%] w-[700px] h-[700px] bg-red-50/40 dark:bg-tdx-red/[0.06] rounded-full blur-[80px] md:blur-[150px] will-change-transform" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-neutral-100/60 dark:bg-white/[0.03] rounded-full blur-[60px] md:blur-[120px] will-change-transform" />
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4 md:px-12 relative">
@@ -257,6 +257,78 @@ export const Pricing: React.FC = () => {
             </p>
           </div>
         </motion.div>
+
+        {/* Express MVP Promotional Block */}
+        <div className="mb-16 md:mb-24 mt-8">
+          <div className="relative overflow-hidden rounded-3xl border border-tdx-red/30 bg-neutral-50 dark:bg-neutral-900/50 p-8 md:p-12 shadow-2xl">
+            {/* Background Effects */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-tdx-red/10 to-transparent rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none mix-blend-overlay" />
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
+              {/* Left Content */}
+              <div className="lg:col-span-5 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tdx-red opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-tdx-red"></span>
+                  </span>
+                  <span className="font-mono text-tdx-red text-xs font-bold tracking-widest uppercase">express mvp</span>
+                </div>
+                
+                <h3 className="font-display font-bold text-4xl md:text-5xl text-black dark:text-white mb-6 leading-[1.1]">
+                  Launch a complete MVP in just 7 days
+                </h3>
+                
+                <p className="text-neutral-500 dark:text-neutral-400 text-lg mb-8 font-light">
+                  Fully equipped for market feedback and user testing.
+                </p>
+                
+                <div className="mb-8">
+                  <span className="text-neutral-500 dark:text-neutral-400 block text-sm font-mono mb-2 uppercase tracking-wide">In Just</span>
+                  <div className="text-5xl md:text-6xl font-display font-bold text-black dark:text-white pb-2 border-b-2 border-tdx-red inline-block">
+                    $3500
+                  </div>
+                </div>
+                
+                <div>
+                  <a href="#contact" className="group relative inline-flex items-center justify-center px-10 py-4 bg-tdx-red text-white font-bold rounded-full overflow-hidden transition-all duration-300 shadow-[0_0_20px_rgba(255,31,31,0.3)] hover:shadow-[0_0_30px_rgba(255,31,31,0.5)]">
+                    <span className="relative z-10 flex items-center gap-2">
+                      Let's Talk <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Features List */}
+              <div className="lg:col-span-7">
+                <div className="bg-white dark:bg-black/40 rounded-2xl p-8 border border-black/5 dark:border-white/10 h-full flex items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 w-full">
+                    {[
+                      "Custom-Built Functional Web Application",
+                      "Core Features Implementation",
+                      "Simple & Secure User Authentication",
+                      "Basic Database Integration",
+                      "Mobile-Responsive, Adaptive Design",
+                      "Complete Source Code Ownership",
+                      "Deployment to Live Environment",
+                      "Comprehensive Technical Documentation",
+                      "Basic Analytics & Feedback Hooks",
+                      "Post-Launch Support & Maintenance"
+                    ].map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <Scan size={14} className="text-tdx-red mt-1 shrink-0" />
+                        <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Table Header (Desktop) */}
         <div className="hidden md:grid grid-cols-12 items-center py-4 px-8 mb-2">

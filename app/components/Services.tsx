@@ -25,7 +25,7 @@ import {
 const services = [
   {
     title: "AI Driven Services",
-    description: "Deep learning models & neural integration.",
+    description: "We create intelligent AI-driven systems to enhance customer experiences, and deliver deep data insights. Our expertise spans machine learning, generative AI, computer vision, NLP, and AI integration for web and mobile products.",
     details: [
       "Starter: Basic AI integrations for small apps", 
       "Growth: Custom AI models + integration", 
@@ -36,7 +36,7 @@ const services = [
   },
   {
     title: "Business Automation",
-    description: "Workflow orchestration & data sync.",
+    description: "We help businesses automate complex workflows using power tools. From lead capture to data sync, AI integration to backend task orchestration, we build smart, reliable, and scalable no-code/low-code automations.",
     details: [
       "Basic Automation: Single no-code/low-code workflow", 
       "Advanced Automation: AI + data sync + orchestration", 
@@ -46,8 +46,8 @@ const services = [
     icon: Workflow
   },
   {
-    title: "Blockchain Dev",
-    description: "Smart contracts & decentralized ledgers.",
+    title: "Blockchain Development",
+    description: "We are excited and proud to offer cutting-edge, robust, scalable, and secure blockchain solutions for startups, enterprises, and web3 projects across multiple platforms and ecosystems.",
     details: [
       "Prototype: Smart contract, testnet deployment", 
       "Launch-Ready: Mainnet, audits, dashboards", 
@@ -58,7 +58,7 @@ const services = [
   },
   {
     title: "Web App Development",
-    description: "Scalable SaaS & cloud architectures.",
+    description: "We design and develop fast, secure, and scalable web applications that solve real-world business problems. From MVPs to full-scale SaaS platforms, our team builds modern web apps tailored to your audience and growth goals.",
     details: [
       "MVP Launch: Core feature web app", 
       "Scale Plan: Full SaaS platform", 
@@ -68,8 +68,8 @@ const services = [
     icon: Globe
   },
   {
-    title: "Mobile Ecosystems",
-    description: "Native iOS/Android performance.",
+    title: "Mobile App Development",
+    description: "We build intuitive, high-performance mobile apps for iOS and Android using native and cross-platform technologies. Whether you're launching a consumer product or an internal business tool, we craft seamless mobile experiences designed to scale.",
     details: [
       "Prototype App: Core features, single platform", 
       "Cross-Platform: iOS & Android apps", 
@@ -79,8 +79,8 @@ const services = [
     icon: Smartphone
   },
   {
-    title: "AI Agents",
-    description: "Autonomous decision-making entities.",
+    title: "AI Agents Development",
+    description: "We build autonomous AI agents that combine memory, tools, and decision-making capabilities to think, plan, and act on your behalf. Whether you need task automation, smart virtual assistants, or intelligent agents for research, we create advanced AI-driven systems customized for your business.",
     details: [
       "Basic Agent: Pre-trained AI assistant", 
       "Advanced Agent: Custom decision-making capabilities", 
@@ -90,8 +90,8 @@ const services = [
     icon: Bot
   },
   {
-    title: "WordPress Enterprise",
-    description: "Custom headless CMS solutions.",
+    title: "WordPress Development",
+    description: "We deliver custom WordPress solutions tailored to your business needs — from simple blogs to complex eCommerce and membership sites. Our experts build responsive, fast, and secure WordPress websites with intuitive admin controls.",
     details: [
       "Starter Site: Basic WordPress website", 
       "Business Site: eCommerce/membership site", 
@@ -101,8 +101,8 @@ const services = [
     icon: LayoutTemplate
   },
   {
-    title: "SEO Intelligence",
-    description: "Algorithmic ranking dominance.",
+    title: "SEO Services",
+    description: "We help businesses boost visibility, drive qualified traffic, and rank higher on Google with modern SEO strategies. Whether you’re a local business, an ECommerce brand, or a global SaaS platform — we optimize your online presence for sustainable, long-term growth.",
     details: [
       "Basic SEO: Keyword & on-page SEO", 
       "Growth SEO: Content & technical SEO", 
@@ -112,8 +112,8 @@ const services = [
     icon: Search
   },
   {
-    title: "Social Algorithms",
-    description: "Data-driven engagement loops.",
+    title: "Social Media Marketing",
+    description: "We help brands grow, engage, and convert through strategic content and performance-driven social media marketing. From creating viral content to running targeted ad campaigns — we build and manage your presence across all major platforms.",
     details: [
       "Starter: Content posting + calendar", 
       "Growth: Strategy, design, tracking", 
@@ -138,35 +138,42 @@ export const Services: React.FC = () => {
   return (
     <section ref={containerRef} id="services" className="bg-white dark:bg-neutral-950 py-24 lg:py-32 relative z-10 overflow-hidden">
       
-      {/* Background Ambience */}
+      {/* Background Ambience - Optimized for mobile */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-red-50/50 dark:bg-tdx-red/10 rounded-full blur-[120px]" />
-         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-neutral-100/50 dark:bg-white/5 rounded-full blur-[100px]" />
+         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-red-50/50 dark:bg-tdx-red/10 rounded-full blur-[70px] md:blur-[120px] will-change-transform" />
+         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-neutral-100/50 dark:bg-white/5 rounded-full blur-[60px] md:blur-[100px] will-change-transform" />
       </div>
 
       <SectionWrapper>
         
         {/* Editorial Header */}
-        <div className="relative mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/5 dark:border-white/10 pb-12">
-            <div className="max-w-4xl relative z-10">
-                <div className="flex items-center gap-3 mb-6 md:mb-8">
-                    <span className="flex items-center justify-center w-6 h-6 border border-red-600 rounded-full text-red-600">
-                        <Scan size={12} />
-                    </span>
-                    <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-red-600 font-bold">What We Do</span>
-                </div>
-                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif text-black dark:text-white leading-[0.85] tracking-tighter">
-                  Core <br/>
-                  <span className="italic text-neutral-300 font-light">Capabilities</span><span className="text-red-600">.</span> 
-                </h2>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-12 md:mb-20 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/[0.06] dark:border-white/10 pb-10 md:pb-14"
+        >
+          <div className="max-w-3xl relative z-10">
+            <div className="flex items-center gap-3 mb-6 md:mb-8">
+              <span className="flex items-center justify-center w-6 h-6 border border-red-600 rounded-full text-red-600">
+                <Scan size={12} />
+              </span>
+              <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-red-600 font-bold">What We Do</span>
             </div>
+            <h2 className="font-display font-bold text-5xl sm:text-6xl md:text-8xl tracking-tighter text-black dark:text-white leading-[0.85]">
+              Explore Our{' '}
+              <span className="italic text-neutral-300 dark:text-neutral-600 font-light">Services</span>
+              <span className="text-red-600">.</span>
+            </h2>
+          </div>
 
-            <div className="hidden md:flex flex-col items-end gap-4 pb-2">
-                <p className="font-mono text-[10px] text-neutral-400 dark:text-neutral-400 uppercase tracking-widest text-right leading-relaxed">
-                    Click any service<br/>to explore details
-                </p>
-            </div>
-        </div>
+          <div className="hidden md:flex flex-col items-end gap-4 pb-2">
+            <p className="font-mono text-[10px] text-neutral-400 dark:text-neutral-400 uppercase tracking-widest text-right leading-relaxed">
+                Click any service<br/>to explore details
+            </p>
+          </div>
+        </motion.div>
 
         {/* The Dossier Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/5 dark:border-white/10 bg-white dark:bg-neutral-950">
@@ -187,7 +194,6 @@ export const Services: React.FC = () => {
 
             return (
               <motion.div 
-                layout
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -206,6 +212,7 @@ export const Services: React.FC = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isActive ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
+                    style={{ willChange: "opacity" }}
                 />
                 
                 {/* Dot Matrix Texture Overlay (Only visible on Active) */}

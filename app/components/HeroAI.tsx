@@ -244,25 +244,29 @@ export const HeroAI: React.FC = () => {
             <span className="font-mono text-xs text-gray-400">Since 2014</span>
           </div>
 
-          <h1 className="font-display font-bold text-6xl sm:text-7xl md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-black dark:text-white mb-8 relative">
-            FUTURE <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tdx-red to-black dark:to-white relative z-10">
-              PRIME
+          <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] leading-[0.9] tracking-tight text-black dark:text-white mb-8 relative max-w-4xl">
+            Elevate your business with the <br className="hidden lg:block"/> power of{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tdx-red to-red-500 relative z-10">
+              AI
             </span>
             {/* Subtle Text Glow Behind Headline */}
             <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-tdx-red/20 blur-[60px] -z-10" />
           </h1>
 
-          <p className="font-mono text-gray-500 dark:text-gray-300 text-lg max-w-xl leading-relaxed mb-12 border-l-4 border-tdx-red pl-8 backdrop-blur-sm">
-            We build innovative digital solutions that transform businesses. 
-            From AI-powered platforms to scalable SaaS — we deliver results.
+          <p className="font-mono text-gray-500 dark:text-gray-300 text-lg md:text-xl max-w-xl leading-relaxed mb-12 border-l-4 border-tdx-red pl-8 backdrop-blur-sm">
+            Innovative solutions to meet your all business essentials.
           </p>
 
-          <div className="flex flex-wrap items-center gap-6">
-            <a href="#contact" className="group relative px-10 py-5 bg-black text-white rounded-full overflow-hidden shadow-2xl shadow-black/20 hover:shadow-tdx-red/40 transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-r from-tdx-red to-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+          <div className="flex flex-wrap items-center gap-4 md:gap-6">
+            <a href="#about" className="group relative px-8 md:px-10 py-4 md:py-5 bg-black text-white rounded-full overflow-hidden shadow-2xl shadow-black/20 hover:shadow-tdx-red/40 transition-all duration-300">
               <span className="relative z-10 font-bold flex items-center gap-3 tracking-wide">
-                GET STARTED <ArrowDown size={18} />
+                Learn More <ArrowDown size={18} />
+              </span>
+            </a>
+            <a href="#contact" className="group relative px-8 md:px-10 py-4 md:py-5 bg-transparent border border-black/20 dark:border-white/20 text-black dark:text-white rounded-full overflow-hidden hover:border-tdx-red dark:hover:border-tdx-red transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-tdx-red to-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+              <span className="relative z-10 font-bold flex items-center gap-3 tracking-wide group-hover:text-white transition-colors">
+                LET'S TALK <ArrowDown className="-rotate-90" size={18} />
               </span>
             </a>
           </div>

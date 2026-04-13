@@ -105,10 +105,32 @@ export const Contact: React.FC = () => {
     setFormState(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 4000);
+    
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(formState)
+      });
+      
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Submission failed:", data.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    
+    setTimeout(() => {
+        setIsSubmitted(false);
+        setFormState({ name: '', email: '', service: '', budget: '', message: '' });
+    }, 4000);
   };
 
   const services = [
@@ -213,22 +235,6 @@ export const Contact: React.FC = () => {
                     <a href="mailto:hello@tdx.ai" className="font-display font-semibold text-base md:text-lg text-black dark:text-white hover:text-tdx-red transition-colors">
                       hello@tdx.ai
                     </a>
-                  </div>
-                </div>
-
-
-
-                {/* Location */}
-                <div className="group flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 flex items-center justify-center group-hover:bg-tdx-red group-hover:border-tdx-red transition-all duration-300 shrink-0">
-                    <MapPin size={18} className="text-neutral-500 group-hover:text-white transition-colors" />
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest mb-1">HQ</p>
-                    <p className="font-display font-semibold text-base md:text-lg text-black dark:text-white">
-                      100 Innovation Dr.<br />
-                      <span className="text-neutral-500 font-light text-sm">San Francisco, CA 94103</span>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -371,55 +377,59 @@ export const Contact: React.FC = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* Mixed Footer Area */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-t border-neutral-200 dark:border-white/10 pt-12 pb-8">
-          <div className="col-span-1 md:col-span-1">
-             <div className="mb-6">
-                <Image src={logo} alt="TDX" className="h-8 md:h-10 w-auto object-contain dark:brightness-200" />
-             </div>
-             <p className="text-sm font-medium text-neutral-500 mb-6 max-w-[200px]">
-               Architecting intelligent digital systems.
-             </p>
-             <div className="flex gap-4">
-               {[
-                 { icon: Linkedin, href: 'https://www.linkedin.com/company/tdx/' },
-                 { icon: Facebook, href: 'https://www.facebook.com/TDXai/' },
-                 { icon: Instagram, href: 'https://www.instagram.com/tdx.ai' }
-               ].map((social, i) => {
-                 const Icon = social.icon;
-                 return (
-                   <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-neutral-200 dark:border-white/10 rounded-full flex items-center justify-center text-neutral-500 hover:bg-tdx-red hover:text-white hover:border-tdx-red transition-all cursor-hover">
-                     <Icon size={16} />
-                   </a>
-                 );
-               })}
-             </div>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest">Navigate</h4>
-            <ul className="space-y-2 text-sm font-medium text-neutral-900 dark:text-white">
-              <li><a href="#about" className="hover:text-tdx-red transition-colors">About</a></li>
-              <li><a href="#services" className="hover:text-tdx-red transition-colors">Services</a></li>
-              <li><a href="#work" className="hover:text-tdx-red transition-colors">Work</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest">More</h4>
-            <ul className="space-y-2 text-sm font-medium text-neutral-900 dark:text-white">
-              <li><a href="#pricing" className="hover:text-tdx-red transition-colors">Pricing</a></li>
-              <li><a href="#testimonials" className="hover:text-tdx-red transition-colors">Testimonials</a></li>
-              <li><a href="#contact" className="hover:text-tdx-red transition-colors">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-neutral-200 dark:border-white/10 font-mono text-[10px] text-neutral-400">
-           <p className="mb-4 md:mb-0">© 2024 TDX Agency. All rights reserved.</p>
-        </div>
       </div>
+
+      {/* Mixed Footer Area */}
+      <footer className="bg-neutral-950 text-white w-full pt-16 pb-8 relative z-20">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
+            <div className="col-span-1 md:col-span-1">
+               <div className="mb-6">
+                  <Image src={logo} alt="TDX" className="h-8 md:h-10 w-auto object-contain brightness-200" />
+               </div>
+               <p className="text-sm font-medium text-neutral-400 mb-6 max-w-[200px]">
+                 Architecting intelligent digital systems.
+               </p>
+               <div className="flex gap-4">
+                 {[
+                   { icon: Linkedin, href: 'https://www.linkedin.com/company/tdx/' },
+                   { icon: Facebook, href: 'https://www.facebook.com/TDXai/' },
+                   { icon: Instagram, href: 'https://www.instagram.com/tdx.ai' }
+                 ].map((social, i) => {
+                   const Icon = social.icon;
+                   return (
+                     <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-neutral-400 hover:bg-tdx-red hover:text-white hover:border-tdx-red transition-all cursor-hover">
+                       <Icon size={16} />
+                     </a>
+                   );
+                 })}
+               </div>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest">Navigate</h4>
+              <ul className="space-y-2 text-sm font-medium text-neutral-300">
+                <li><a href="#about" className="hover:text-tdx-red transition-colors">About</a></li>
+                <li><a href="#services" className="hover:text-tdx-red transition-colors">Services</a></li>
+                <li><a href="#work" className="hover:text-tdx-red transition-colors">Work</a></li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest">More</h4>
+              <ul className="space-y-2 text-sm font-medium text-neutral-300">
+                <li><a href="#pricing" className="hover:text-tdx-red transition-colors">Pricing</a></li>
+                <li><a href="#testimonials" className="hover:text-tdx-red transition-colors">Testimonials</a></li>
+                <li><a href="#contact" className="hover:text-tdx-red transition-colors">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-center pt-8 font-mono text-[10px] text-neutral-500">
+             <p className="mb-4 md:mb-0">© 2024 TDX Agency. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </section>
   );
 };

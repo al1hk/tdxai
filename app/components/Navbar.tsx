@@ -91,10 +91,10 @@ export const Navbar: React.FC = () => {
         className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
       >
         <div className={`
-          flex items-center justify-between px-4 md:px-6 py-3 rounded-full transition-colors duration-300
+          flex items-center justify-between px-4 md:px-6 py-3 rounded-full transition-all duration-300 w-full max-w-5xl backdrop-blur-md border border-white/10
           ${scrolled 
-            ? 'w-full max-w-5xl bg-white/90 dark:bg-neutral-950/90 shadow-sm border border-black/5 dark:border-white/10 backdrop-blur-md' 
-            : 'w-full max-w-5xl bg-transparent border border-transparent'
+            ? 'bg-black/95 shadow-xl shadow-black/10' 
+            : 'bg-black/80 shadow-md shadow-black/5'
           }
         `}>
           {/* Logo */}
@@ -103,7 +103,7 @@ export const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center bg-gray-100/50 dark:bg-white/5 rounded-full px-2 p-1 border border-gray-200/50 dark:border-white/10 backdrop-blur-sm relative">
+          <div className="hidden md:flex items-center bg-white/5 rounded-full px-2 p-1 border border-white/10 backdrop-blur-sm relative">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -111,7 +111,7 @@ export const Navbar: React.FC = () => {
                 className={`px-5 py-2 text-sm font-medium transition-all duration-300 relative cursor-hover rounded-full
                   ${activeSection === link.href
                     ? 'text-white bg-tdx-red shadow-md shadow-tdx-red/30'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/10'
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                   }
                 `}
               >
@@ -125,7 +125,7 @@ export const Navbar: React.FC = () => {
               type="button"
               aria-label="Toggle dark mode"
               onClick={toggleTheme}
-              className="w-11 h-11 rounded-full flex items-center justify-center border border-gray-200/60 dark:border-white/10 bg-white/70 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-white dark:hover:bg-white/10 transition-colors cursor-hover"
+              className="w-11 h-11 rounded-full flex items-center justify-center border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-colors cursor-hover"
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -138,9 +138,8 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-gray-900 dark:text-white p-2 bg-gray-100 dark:bg-white/5 rounded-full cursor-hover"
+            className="md:hidden text-white p-2 bg-white/5 border border-white/10 rounded-full cursor-hover"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}

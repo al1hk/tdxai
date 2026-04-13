@@ -7,19 +7,19 @@ const values = [
   {
     id: "01",
     title: "Experienced",
-    description: "Experience is what makes something concrete, yet futuristic. We draw from a deep well of historical data to predict the next wave.",
+    description: "Experience is what makes something concrete, yet futuristic.",
     gradient: "from-blue-500/20 to-purple-500/20"
   },
   {
     id: "02",
     title: "Reliable",
-    description: "We aim to gain your trust, which is only possible by providing the best. Our systems are architected for 99.99% uptime and fault tolerance.",
+    description: "We aim to gain your trust, which is only possible by providing the best.",
     gradient: "from-tdx-red/20 to-orange-500/20"
   },
   {
     id: "03",
     title: "Passionate",
-    description: "Passion to innovate is the only key which can lead you to success. We are obsessed with the boundary between what is and what could be.",
+    description: "Passion to innovate is the only key which can lead you to success.",
     gradient: "from-emerald-500/20 to-teal-500/20"
   }
 ];
@@ -41,13 +41,13 @@ export const CoreValues: React.FC = () => {
         >
           <div>
             <span className="font-mono text-tdx-red text-xs tracking-[0.2em] uppercase mb-4 block">Our DNA</span>
-            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-7xl tracking-tighter text-black dark:text-white">
-              CORE <span className="text-gray-400">PHILOSOPHY</span>
+            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl tracking-tighter text-black dark:text-white">
+              We are driven by <span className="text-gray-400">values</span>
             </h2>
           </div>
-          <div className="hidden md:block">
-            <p className="font-mono text-xs text-gray-500 text-right max-w-xs">
-              // PRINCIPLES GUIDING OUR <br /> INTELLIGENT SYSTEMS
+          <div className="hidden md:block mt-auto pb-2">
+            <p className="font-display font-light text-sm text-gray-500 dark:text-gray-400 text-right max-w-[280px]">
+              Reality hinges on moral values & our values distinguish us from others because we don’t compromise on them ever.
             </p>
           </div>
         </motion.div>
