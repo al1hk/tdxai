@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-white dark:bg-neutral-950 pt-24 pb-8 border-t border-gray-100 dark:border-white/10">
+    <footer className="bg-white dark:bg-black pt-24 pb-8 border-t border-gray-100 dark:border-white/10">
       <div className="max-w-[1400px] mx-auto px-6">
         
         {/* Big CTA */}

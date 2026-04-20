@@ -145,8 +145,14 @@ export const CaseStudies: React.FC = () => {
   }, [isMobile]);
 
   return (
-    <section ref={targetRef} id="work" className="relative h-auto md:h-[300vh] bg-neutral-900">
+    <section ref={targetRef} id="work" className="relative z-20 h-auto md:h-[300vh] bg-black">
       <div className="relative md:sticky top-0 h-auto md:h-screen flex flex-col md:flex-row items-center overflow-hidden">
+
+        {/* Ambient Glows */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden hidden dark:block z-0">
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
+        </div>
 
         {/* Background Overlay Text */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-display font-bold text-neutral-800/20 whitespace-nowrap select-none pointer-events-none hidden md:block">

@@ -159,16 +159,21 @@ export const Contact: React.FC = () => {
   const inputFocusClass = "border-tdx-red";
 
   return (
-    <section id="contact" className="bg-white dark:bg-neutral-950 relative z-10 overflow-hidden">
+    <section id="contact" className="bg-white dark:bg-black relative z-10 overflow-hidden">
       
       {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.04) 0%, transparent 70%)' }} />
-        <div className="absolute top-[10%] left-[-15%] w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.08) 0%, transparent 70%)' }} />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Light Theme */}
+        <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full dark:hidden" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.04) 0%, transparent 70%)' }} />
+        <div className="absolute top-[10%] left-[-15%] w-[600px] h-[600px] rounded-full dark:hidden" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.08) 0%, transparent 70%)' }} />
+        
+        {/* Dark Theme Ambient Glows */}
+        <div className="absolute bottom-[-10%] right-[-10%] w-[800px] h-[800px] bg-tdx-red/10 rounded-full blur-[120px] hidden dark:block" />
+        <div className="absolute top-[10%] left-[-10%] w-[800px] h-[800px] bg-tdx-red/10 rounded-full blur-[120px] hidden dark:block" />
       </div>
 
       {/* Top CTA Banner */}
-      <div className="relative bg-neutral-50 dark:bg-neutral-900 py-20 md:py-32 overflow-hidden border-y border-neutral-200 dark:border-white/5">
+      <div className="relative bg-neutral-50 dark:bg-black py-20 md:py-32 overflow-hidden border-y border-neutral-200 dark:border-white/5">
         {/* Dot pattern overlay */}
         <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#000_1px,transparent_1px)] dark:bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[length:20px_20px]" />
         
@@ -381,7 +386,7 @@ export const Contact: React.FC = () => {
       </div>
 
       {/* Mixed Footer Area */}
-      <footer className="bg-neutral-950 text-white w-full pt-16 pb-8 relative z-20">
+      <footer className="bg-black text-white w-full pt-16 pb-8 relative z-20">
         <div className="max-w-[1400px] mx-auto px-4 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
             <div className="col-span-1 md:col-span-1">

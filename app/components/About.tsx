@@ -38,7 +38,7 @@ export const About: React.FC = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* PART 1: HERO — "Our Story" */}
       {/* ═══════════════════════════════════════════ */}
-      <div className="relative bg-neutral-950 text-white overflow-hidden">
+      <div className="relative z-20 bg-black text-white overflow-hidden">
         
         {/* Layered ambient glows */}
         <div className="absolute inset-0 pointer-events-none">
@@ -110,7 +110,7 @@ export const About: React.FC = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* PART 2: TIMELINE JOURNEY */}
       {/* ═══════════════════════════════════════════ */}
-      <div className="relative bg-neutral-950 text-white">
+      <div className="relative z-20 bg-black text-white">
         
         {/* Persistent ambient glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -155,7 +155,7 @@ export const About: React.FC = () => {
                 >
                   {/* Timeline Node (desktop) */}
                   <div className="absolute left-1/2 -translate-x-1/2 top-6 hidden lg:flex flex-col items-center z-20">
-                    <div className="w-4 h-4 rounded-full bg-neutral-950 border-2 border-tdx-red shadow-[0_0_20px_rgba(255,31,31,0.3)]" />
+                    <div className="w-4 h-4 rounded-full bg-black border-2 border-tdx-red shadow-[0_0_20px_rgba(255,31,31,0.3)]" />
                   </div>
 
                   {/* Content side */}
@@ -163,7 +163,7 @@ export const About: React.FC = () => {
                     
                     {/* Chapter index badge */}
                     <div className={`flex items-center gap-3 mb-6 ${isLeft ? 'lg:justify-end' : 'lg:justify-start'}`}>
-                      <div className="lg:hidden w-3 h-3 rounded-full bg-neutral-950 border-2 border-tdx-red shadow-[0_0_15px_rgba(255,31,31,0.3)]" />
+                      <div className="lg:hidden w-3 h-3 rounded-full bg-black border-2 border-tdx-red shadow-[0_0_15px_rgba(255,31,31,0.3)]" />
                       <span className="font-mono text-tdx-red text-xs md:text-sm font-bold tracking-[0.2em]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
@@ -204,7 +204,7 @@ export const About: React.FC = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* PART 3: WHY WE ARE DIFFERENT */}
       {/* ═══════════════════════════════════════════ */}
-      <div className="relative bg-white dark:bg-neutral-950 overflow-hidden transition-colors duration-300">
+      <div className="relative bg-white dark:bg-black overflow-hidden transition-colors duration-300">
         
         {/* Background accents */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">

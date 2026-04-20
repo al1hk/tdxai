@@ -29,9 +29,15 @@ const values = [
 
 export const CoreValues: React.FC = () => {
   return (
-    <section className="py-20 md:py-40 bg-white dark:bg-neutral-950 relative z-10 overflow-hidden">
+    <section className="py-20 md:py-40 bg-white dark:bg-black relative z-10 overflow-hidden">
       {/* Background Mesh */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:16px_16px] md:bg-[size:24px_24px]" />
+
+      {/* Dark Theme Ambient Glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden hidden dark:block z-0">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/4" />
+      </div>
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         

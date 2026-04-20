@@ -154,7 +154,7 @@ const ServiceCard = memo<{
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       onClick={onClick}
-      className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer bg-white dark:bg-neutral-950 transition-colors duration-500
+      className={`group relative flex flex-col justify-between overflow-hidden cursor-pointer bg-white dark:bg-black transition-colors duration-500
         ${gridClass}
       `}
     >
@@ -317,12 +317,17 @@ export const Services: React.FC = () => {
   }, []);
 
   return (
-    <section id="services" className="bg-white dark:bg-neutral-950 py-24 lg:py-32 relative z-10 overflow-hidden">
+    <section id="services" className="bg-white dark:bg-black py-24 lg:py-32 relative z-10 overflow-hidden">
       
-      {/* Background Ambience - Optimized for mobile */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.08) 0%, transparent 70%)' }} />
-         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.1) 0%, transparent 70%)' }} />
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+         {/* Light Mode Glows */}
+         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full dark:hidden" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.08) 0%, transparent 70%)' }} />
+         <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] rounded-full dark:hidden" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.1) 0%, transparent 70%)' }} />
+         
+         {/* Dark Mode Glows */}
+         <div className="absolute top-[10%] right-0 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] hidden dark:block translate-x-1/4" />
+         <div className="absolute bottom-[10%] left-0 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] hidden dark:block -translate-x-1/4" />
       </div>
 
       <SectionWrapper>
@@ -357,7 +362,7 @@ export const Services: React.FC = () => {
         </motion.div>
 
         {/* The Dossier Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/5 dark:border-white/10 bg-white dark:bg-neutral-950">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-black/5 dark:border-white/10 bg-white dark:bg-black">
           {services.map((service, index) => (
             <ServiceCard
               key={index}

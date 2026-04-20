@@ -68,10 +68,16 @@ const Logos = [
 
 export const Marquee: React.FC = () => {
   return (
-    <div className="relative py-24 bg-white dark:bg-neutral-950 overflow-hidden z-20 border-b border-gray-100 dark:border-white/10">
+    <div className="relative py-24 bg-white dark:bg-black overflow-hidden z-20 border-b border-gray-100 dark:border-white/10">
+      {/* Dark Theme Ambient Glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden hidden dark:block z-0">
+        <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-tdx-red/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-tdx-red/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
+      </div>
+
       {/* Fade Edges */}
-      <div className="absolute left-0 top-0 w-20 md:w-40 h-full bg-gradient-to-r from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 w-20 md:w-40 h-full bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
 
       {/* Label - Positioned cleanly inside the section */}
       <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/5 backdrop-blur-sm z-30 w-max">

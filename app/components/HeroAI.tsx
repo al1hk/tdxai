@@ -219,7 +219,7 @@ export const HeroAI: React.FC = () => {
   }, []);
 
   return (
-    <section ref={ref} className="relative min-h-[110vh] flex flex-col justify-center overflow-hidden bg-white dark:bg-neutral-950 pt-24">
+    <section ref={ref} className="relative min-h-[110vh] flex flex-col justify-center overflow-hidden bg-white dark:bg-black pt-24">
       
       {/* --- NEW DYNAMIC BACKGROUND LAYERS --- */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

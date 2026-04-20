@@ -74,7 +74,7 @@ const TestimonialCard = ({ data }: { data: typeof testimonials[0] }) => (
 
 export const Testimonials: React.FC = () => {
   return (
-    <div id="testimonials" className="bg-white dark:bg-neutral-950 py-16 md:py-32 border-t border-neutral-100 dark:border-white/10 relative overflow-hidden transition-colors duration-300">
+    <div id="testimonials" className="bg-white dark:bg-black py-16 md:py-32 border-t border-neutral-100 dark:border-white/10 relative overflow-hidden transition-colors duration-300">
       
       {/* Label */}
       <div className="mb-12 md:mb-20 flex justify-center">
@@ -90,8 +90,8 @@ export const Testimonials: React.FC = () => {
       {/* Marquee Container */}
       <div className="flex overflow-hidden relative group">
          {/* Gradient Masks */}
-         <div className="absolute top-0 left-0 w-20 md:w-40 h-full bg-gradient-to-r from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
-         <div className="absolute top-0 right-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
+         <div className="absolute top-0 left-0 w-20 md:w-40 h-full bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
+         <div className="absolute top-0 right-0 w-20 md:w-40 h-full bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
 
          {/* Stream 1 */}
          <div className="flex animate-marquee [animation-duration:60s] group-hover:[animation-play-state:paused] min-w-full shrink-0 items-stretch will-change-transform translate-z-0">

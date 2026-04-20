@@ -155,7 +155,7 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-neutral-950 pt-24 px-6 flex flex-col items-center"
+            className="fixed inset-0 z-40 bg-white dark:bg-black pt-24 px-6 flex flex-col items-center"
           >
             {navLinks.map((link, i) => {
               const Icon = link.icon;

@@ -161,7 +161,7 @@ export const AIBg: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none -z-10 bg-white dark:bg-neutral-950"
+      className="fixed inset-0 pointer-events-none -z-10 bg-white dark:bg-black"
     />
   );
 };

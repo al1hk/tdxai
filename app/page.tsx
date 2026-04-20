@@ -26,7 +26,7 @@ const Contact = dynamic(() => import('./components/Contact').then(mod => ({ defa
 
 const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen font-sans selection:bg-tdx-red selection:text-white bg-white dark:bg-neutral-950 text-black dark:text-white">
+    <div className="relative min-h-screen font-sans selection:bg-tdx-red selection:text-white bg-white dark:bg-black text-black dark:text-white">
       <div className="bg-noise" />
       <CustomCursor />
       <AIBg />
