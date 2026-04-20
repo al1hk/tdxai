@@ -163,8 +163,8 @@ export const Contact: React.FC = () => {
       
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-red-50/30 dark:bg-tdx-red/[0.04] rounded-full blur-[180px]" />
-        <div className="absolute top-[10%] left-[-15%] w-[600px] h-[600px] bg-neutral-100/40 dark:bg-white/[0.02] rounded-full blur-[140px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.04) 0%, transparent 70%)' }} />
+        <div className="absolute top-[10%] left-[-15%] w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.08) 0%, transparent 70%)' }} />
       </div>
 
       {/* Top CTA Banner */}
@@ -173,7 +173,7 @@ export const Contact: React.FC = () => {
         <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#000_1px,transparent_1px)] dark:bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[length:20px_20px]" />
         
         {/* Ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-tdx-red/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.1) 0%, transparent 70%)' }} />
 
         <div className="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
           <motion.div
@@ -386,7 +386,7 @@ export const Contact: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
             <div className="col-span-1 md:col-span-1">
                <div className="mb-6">
-                  <Image src={logo} alt="TDX" className="h-8 md:h-10 w-auto object-contain brightness-200" />
+                  <Image src={logo} alt="TDX" width={120} height={40} className="h-8 md:h-10 w-auto object-contain brightness-200" />
                </div>
                <p className="text-sm font-medium text-neutral-400 mb-6 max-w-[200px]">
                  Architecting intelligent digital systems.

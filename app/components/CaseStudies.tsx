@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { CaseStudy } from '@/types';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -72,10 +72,8 @@ export const CaseStudies: React.FC = () => {
     target: targetRef,
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
-
-  // Transform vertical scroll to horizontal scroll
-  const x = useTransform(smoothProgress, [0, 1], ["1%", "-75%"]);
+  // Transform vertical scroll to horizontal scroll (no spring — avoids continuous frame updates when idle)
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
 
   // Mobile drag-to-scroll handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -184,6 +182,8 @@ export const CaseStudies: React.FC = () => {
                   src={study.image}
                   alt={study.title || "Case Study"}
                   fill
+                  sizes="600px"
+                  loading="lazy"
                   className="object-cover transition-transform duration-700 group-hover:scale-105 relative z-10"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 group-hover:from-black/90 group-hover:via-black/40 transition-colors duration-500 z-20" />
@@ -264,6 +264,8 @@ export const CaseStudies: React.FC = () => {
                     src={study.image}
                     alt={study.title || "Case Study Thumbnail"}
                     fill
+                    sizes="85vw"
+                    loading="lazy"
                     className="object-cover relative z-10"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 z-20" />

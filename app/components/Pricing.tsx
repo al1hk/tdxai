@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Zap, ArrowUpRight, Scan } from 'lucide-react';
 import Link from 'next/link';
@@ -88,12 +88,12 @@ const pricingData = [
   }
 ];
 
-const ServiceCategory: React.FC<{
+const ServiceCategory = memo<{
   category: typeof pricingData[0];
   index: number;
   isExpanded: boolean;
   onToggle: () => void;
-}> = ({ category, index, isExpanded, onToggle }) => {
+}>(({ category, index, isExpanded, onToggle }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -194,22 +194,24 @@ const ServiceCategory: React.FC<{
       </AnimatePresence>
     </motion.div>
   );
-};
+});
+
+ServiceCategory.displayName = 'ServiceCategory';
 
 export const Pricing: React.FC = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
-  const handleToggle = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+  const handleToggle = useCallback((index: number) => {
+    setExpandedIndex(prev => prev === index ? null : index);
+  }, []);
 
   return (
     <section id="pricing" className="bg-white dark:bg-neutral-950 py-24 lg:py-36 relative z-10 overflow-hidden">
       
       {/* Background Ambience - Optimized for mobile */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[15%] left-[-15%] w-[700px] h-[700px] bg-red-50/40 dark:bg-tdx-red/[0.06] rounded-full blur-[80px] md:blur-[150px] will-change-transform" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-neutral-100/60 dark:bg-white/[0.03] rounded-full blur-[60px] md:blur-[120px] will-change-transform" />
+        <div className="absolute top-[15%] left-[-15%] w-[700px] h-[700px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.06) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.08) 0%, transparent 70%)' }} />
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4 md:px-12 relative">
@@ -255,7 +257,7 @@ export const Pricing: React.FC = () => {
         <div className="mb-16 md:mb-24 mt-8">
           <div className="relative overflow-hidden rounded-3xl border border-tdx-red/30 bg-neutral-50 dark:bg-neutral-900/50 p-8 md:p-12 shadow-2xl">
             {/* Background Effects */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-tdx-red/10 to-transparent rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle at 100% 0%, rgba(255,31,31,0.1) 0%, transparent 70%)' }} />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none mix-blend-overlay" />
             
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">

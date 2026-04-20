@@ -42,9 +42,9 @@ export const About: React.FC = () => {
         
         {/* Layered ambient glows */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-20%] right-[-10%] w-[900px] h-[900px] bg-tdx-red/[0.07] rounded-full blur-[200px]" />
-          <div className="absolute bottom-[-30%] left-[-15%] w-[700px] h-[700px] bg-blue-500/[0.03] rounded-full blur-[180px]" />
-          <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-tdx-red/[0.04] rounded-full blur-[120px]" />
+          <div className="absolute top-[-20%] right-[-10%] w-[900px] h-[900px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.07) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-[-30%] left-[-15%] w-[700px] h-[700px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.03) 0%, transparent 70%)' }} />
+          <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.04) 0%, transparent 70%)' }} />
         </div>
         
         {/* Grid texture */}
@@ -60,7 +60,7 @@ export const About: React.FC = () => {
         
         {/* Film grain */}
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none z-[1]" 
-          style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")`, backgroundRepeat: 'repeat' }}
+          style={{ backgroundImage: `url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==")`, backgroundRepeat: 'repeat' }}
         />
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32 md:pt-44 pb-24 md:pb-32">
@@ -114,7 +114,7 @@ export const About: React.FC = () => {
         
         {/* Persistent ambient glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-[20%] right-0 w-[600px] h-[600px] bg-tdx-red/[0.05] rounded-full blur-[180px]" />
+          <div className="absolute top-[20%] right-0 w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.05) 0%, transparent 70%)' }} />
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 py-24 md:py-40">
@@ -208,8 +208,8 @@ export const About: React.FC = () => {
         
         {/* Background accents */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-tdx-red/[0.04] dark:bg-tdx-red/[0.06] rounded-full blur-[180px]" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-neutral-200/50 dark:bg-white/[0.02] rounded-full blur-[150px]" />
+          <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.05) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(200,200,200,0.15) 0%, transparent 70%)' }} />
         </div>
         
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-32 md:py-48 relative z-10">

@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { ArrowDown, Zap, CircleDashed, Fingerprint } from 'lucide-react';
 import Link from 'next/link';
 
+const NOISE_DATA_URI = "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==";
+
 export const HeroAI: React.FC = () => {
   const ref = useRef(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -45,7 +47,7 @@ export const HeroAI: React.FC = () => {
     };
   }, []);
 
-  // Neural Network Canvas Animation
+  // Neural Network Canvas Animation — pauses when hero is scrolled out of view
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
@@ -58,6 +60,7 @@ export const HeroAI: React.FC = () => {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let running = true;
+    let inViewport = true;
     
     const resize = () => {
       width = window.innerWidth;
@@ -69,6 +72,16 @@ export const HeroAI: React.FC = () => {
     const handleVisibility = () => {
       running = document.visibilityState === 'visible';
     };
+
+    // IntersectionObserver — pause when hero section is offscreen
+    const sectionEl = ref.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        inViewport = entries[0].isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    if (sectionEl) observer.observe(sectionEl);
 
     window.addEventListener('resize', resize, { passive: true });
     document.addEventListener('visibilitychange', handleVisibility);
@@ -94,7 +107,7 @@ export const HeroAI: React.FC = () => {
     const frameMs = 1000 / 60;
 
     const animate = (t: number) => {
-      if (!running) {
+      if (!running || !inViewport) {
         requestAnimationFrame(animate);
         return;
       }
@@ -200,6 +213,7 @@ export const HeroAI: React.FC = () => {
     return () => {
       window.removeEventListener('resize', resize);
       document.removeEventListener('visibilitychange', handleVisibility);
+      observer.disconnect();
       cancelAnimationFrame(animId);
     };
   }, []);
@@ -215,7 +229,7 @@ export const HeroAI: React.FC = () => {
         <div className="absolute bottom-0 right-0 w-[70vw] h-[70vw] bg-[radial-gradient(circle,rgba(255,31,31,0.05)_0%,transparent_70%)] animate-pulse translate-x-1/4 translate-y-1/4 delay-700" />
 
         {/* 2. Neural Network Canvas */}
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-100" style={{ willChange: 'contents' }} />
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-100" />
         
         {/* 3. Tech Mesh Overlay (Pattern) */}
         <div className="absolute inset-0 opacity-[0.03]" style={{ 
@@ -246,12 +260,12 @@ export const HeroAI: React.FC = () => {
           </div>
 
           <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] leading-[0.9] tracking-tight text-black dark:text-white mb-8 relative max-w-4xl">
-            Elevate your business with the <br className="hidden lg:block"/> power of{' '}
+            Elevate your business with the <br className="hidden lg:block"/>power of{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-tdx-red to-red-500 relative z-10">
               AI
             </span>
             {/* Subtle Text Glow Behind Headline */}
-            <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-tdx-red/20 blur-[60px] -z-10" />
+            <div className="absolute top-1/2 left-1/4 w-32 h-32 -z-10" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.2) 0%, transparent 70%)' }} />
           </h1>
 
           <p className="font-mono text-gray-500 dark:text-gray-300 text-lg md:text-xl max-w-xl leading-relaxed mb-12 border-l-4 border-tdx-red pl-8 backdrop-blur-sm">
@@ -291,7 +305,7 @@ export const HeroAI: React.FC = () => {
               
               {/* Central Energy Mass */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-black via-gray-900 to-black rounded-full shadow-xl flex items-center justify-center z-10 overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30" />
+                <div className="absolute inset-0 opacity-30" style={{ backgroundImage: `url("${NOISE_DATA_URI}")` }} />
                 <div className="w-full h-[1px] bg-tdx-red/50 absolute top-1/2 animate-pulse" />
                 <Zap className="text-white w-12 h-12 relative z-20 animate-pulse" />
               </div>

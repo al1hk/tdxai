@@ -100,7 +100,7 @@ export const Navbar: React.FC = () => {
         `}>
           {/* Logo */}
           <Link href="#" className="flex items-center group">
-            <Image src={logo} alt="TDX" className="h-8 md:h-10 w-auto object-contain" />
+            <Image src={logo} alt="TDX" width={120} height={40} className="h-8 md:h-10 w-auto object-contain" priority />
           </Link>
 
           {/* Desktop Links */}

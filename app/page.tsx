@@ -1,16 +1,28 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { Navbar } from './components/Navbar';
 import { HeroAI } from './components/HeroAI';
 import { AIBg } from './components/AIBg';
-import { Services } from './components/Services';
-import { About } from './components/About';
-import { Pricing } from './components/Pricing';
-import { CaseStudies } from './components/CaseStudies';
-// import { Testimonials } from './components/Testimonials';
-import { Contact } from './components/Contact';
 import { CustomCursor } from './components/CustomCursor';
 import { Marquee } from './components/Marquee';
 import { CoreValues } from './components/CoreValues';
+
+// Dynamically import below-the-fold sections to reduce initial JS bundle and hydration cost
+const Services = dynamic(() => import('./components/Services').then(mod => ({ default: mod.Services })), {
+  loading: () => <div className="min-h-screen" />,
+});
+const About = dynamic(() => import('./components/About').then(mod => ({ default: mod.About })), {
+  loading: () => <div className="min-h-screen" />,
+});
+const Pricing = dynamic(() => import('./components/Pricing').then(mod => ({ default: mod.Pricing })), {
+  loading: () => <div className="min-h-screen" />,
+});
+const CaseStudies = dynamic(() => import('./components/CaseStudies').then(mod => ({ default: mod.CaseStudies })), {
+  loading: () => <div className="min-h-screen" />,
+});
+const Contact = dynamic(() => import('./components/Contact').then(mod => ({ default: mod.Contact })), {
+  loading: () => <div className="min-h-screen" />,
+});
 
 const App: React.FC = () => {
   return (

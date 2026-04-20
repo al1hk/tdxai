@@ -19,7 +19,8 @@ export const AIBg: React.FC = () => {
     let height = window.innerHeight;
     let mouseX = 0;
     let mouseY = 0;
-    let running = true;
+    let tabVisible = true;
+    let inViewport = true;
 
     const resize = () => {
       width = window.innerWidth;
@@ -28,14 +29,34 @@ export const AIBg: React.FC = () => {
       canvas.height = height;
     };
 
+    // Throttled mousemove via RAF
+    let mouseRafId: number | null = null;
+    let latestMX = 0;
+    let latestMY = 0;
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      latestMX = e.clientX;
+      latestMY = e.clientY;
+      if (mouseRafId !== null) return;
+      mouseRafId = window.requestAnimationFrame(() => {
+        mouseRafId = null;
+        mouseX = latestMX;
+        mouseY = latestMY;
+      });
     };
 
     const handleVisibility = () => {
-      running = document.visibilityState === 'visible';
+      tabVisible = document.visibilityState === 'visible';
     };
+
+    // Scroll-based pause — canvas is position:fixed so IntersectionObserver always reports visible.
+    // All sections below hero have opaque backgrounds that fully cover the canvas,
+    // so animation is invisible once scrolled past ~1 viewport height.
+    const handleScroll = () => {
+      inViewport = window.scrollY < window.innerHeight * 1.2;
+    };
+    handleScroll(); // check initial state
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     window.addEventListener('resize', resize, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -75,7 +96,7 @@ export const AIBg: React.FC = () => {
     let rafId = 0;
 
     const animate = (t: number) => {
-      if (!running) {
+      if (!tabVisible || !inViewport) {
         rafId = requestAnimationFrame(animate);
         return;
       }
@@ -92,7 +113,8 @@ export const AIBg: React.FC = () => {
       ctx.strokeStyle = 'rgba(0, 0, 0, 0.02)';
       ctx.lineWidth = 1;
       
-      points.forEach(p => {
+      for (let i = 0; i < points.length; i++) {
+        const p = points[i];
         // Physics: Move points away from mouse
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
@@ -119,7 +141,7 @@ export const AIBg: React.FC = () => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, distSq < hotDistSq ? 2 : 1, 0, Math.PI * 2);
         ctx.fill();
-      });
+      }
 
       rafId = requestAnimationFrame(animate);
     };
@@ -127,8 +149,10 @@ export const AIBg: React.FC = () => {
     rafId = requestAnimationFrame(animate);
 
     return () => {
+      if (mouseRafId !== null) window.cancelAnimationFrame(mouseRafId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('visibilitychange', handleVisibility);
       cancelAnimationFrame(rafId);
     };

@@ -8,19 +8,22 @@ const values = [
     id: "01",
     title: "Experienced",
     description: "Experience is what makes something concrete, yet futuristic.",
-    gradient: "from-blue-500/20 to-purple-500/20"
+    gradient: "from-blue-500/20 to-purple-500/20",
+    glowStyle: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(168,85,247,0.15) 30%, transparent 70%)'
   },
   {
     id: "02",
     title: "Reliable",
     description: "We aim to gain your trust, which is only possible by providing the best.",
-    gradient: "from-tdx-red/20 to-orange-500/20"
+    gradient: "from-tdx-red/20 to-orange-500/20",
+    glowStyle: 'radial-gradient(circle, rgba(255,31,31,0.2) 0%, rgba(249,115,22,0.15) 30%, transparent 70%)'
   },
   {
     id: "03",
     title: "Passionate",
     description: "Passion to innovate is the only key which can lead you to success.",
-    gradient: "from-emerald-500/20 to-teal-500/20"
+    gradient: "from-emerald-500/20 to-teal-500/20",
+    glowStyle: 'radial-gradient(circle, rgba(16,185,129,0.2) 0%, rgba(20,184,166,0.15) 30%, transparent 70%)'
   }
 ];
 
@@ -67,7 +70,7 @@ export const CoreValues: React.FC = () => {
               <div className="relative h-full p-8 md:p-10 rounded-3xl bg-gray-50/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 transition-colors duration-500 border border-transparent hover:border-black/5 dark:hover:border-white/10 overflow-hidden">
                 
                 {/* Hover Gradient Orb */}
-                <div className={`absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br ${item.gradient} rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
+                <div className={`absolute -right-20 -top-20 w-64 h-64 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} style={{ background: item.glowStyle }} />
 
                 {/* Big Number */}
                 <div className="font-display font-bold text-7xl md:text-9xl text-gray-200/50 dark:text-white/10 group-hover:text-black/5 dark:group-hover:text-white/10 transition-colors duration-500 mb-6 md:mb-8 select-none">
