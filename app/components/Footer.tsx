@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Twitter, Linkedin, Github, Mail, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 export const Footer: React.FC = () => {
   return (
@@ -24,9 +25,9 @@ export const Footer: React.FC = () => {
              <div className="font-display font-bold text-2xl tracking-tight mb-6 text-gray-900 dark:text-white">TDX</div>
              <div className="flex gap-4">
                {[Twitter, Linkedin, Github].map((Icon, i) => (
-                 <a key={i} href="#" className="w-10 h-10 border border-gray-200 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black dark:hover:border-white transition-all cursor-hover">
+                 <Link key={i} href="#" className="w-10 h-10 border border-gray-200 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black dark:hover:border-white transition-all cursor-hover">
                    <Icon size={16} />
-                 </a>
+                 </Link>
                ))}
              </div>
           </div>
@@ -34,18 +35,18 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <h4 className="font-mono text-xs text-gray-400 uppercase tracking-widest">Sitemap</h4>
             <ul className="space-y-2 text-sm font-medium text-gray-900 dark:text-white">
-              <li><a href="#" className="hover:text-tdx-red transition-colors">Home</a></li>
-              <li><a href="#" className="hover:text-tdx-red transition-colors">Capabilities</a></li>
-              <li><a href="#" className="hover:text-tdx-red transition-colors">Case Studies</a></li>
-              <li><a href="#" className="hover:text-tdx-red transition-colors">Careers</a></li>
+              <li><Link href="#" className="hover:text-tdx-red transition-colors">Home</Link></li>
+              <li><Link href="#" className="hover:text-tdx-red transition-colors">Capabilities</Link></li>
+              <li><Link href="#" className="hover:text-tdx-red transition-colors">Case Studies</Link></li>
+              <li><Link href="#" className="hover:text-tdx-red transition-colors">Careers</Link></li>
             </ul>
           </div>
 
           <div className="space-y-4">
             <h4 className="font-mono text-xs text-gray-400 uppercase tracking-widest">Legal</h4>
             <ul className="space-y-2 text-sm font-medium text-gray-900 dark:text-white">
-              <li><a href="#" className="hover:text-tdx-red transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-tdx-red transition-colors">Terms of Service</a></li>
+              <li><Link href="#" className="hover:text-tdx-red transition-colors">Privacy Policy</Link></li>
+              <li><Link href="#" className="hover:text-tdx-red transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
 

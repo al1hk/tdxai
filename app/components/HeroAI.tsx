@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { ArrowDown, Zap, CircleDashed, Fingerprint } from 'lucide-react';
+import Link from 'next/link';
 
 export const HeroAI: React.FC = () => {
   const ref = useRef(null);
@@ -258,17 +259,17 @@ export const HeroAI: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap items-center gap-4 md:gap-6">
-            <a href="#about" className="group relative px-8 md:px-10 py-4 md:py-5 bg-black text-white rounded-full overflow-hidden shadow-2xl shadow-black/20 hover:shadow-tdx-red/40 transition-all duration-300">
+            <Link href="#about" className="group relative px-8 md:px-10 py-4 md:py-5 bg-black text-white rounded-full overflow-hidden shadow-2xl shadow-black/20 hover:shadow-tdx-red/40 transition-all duration-300">
               <span className="relative z-10 font-bold flex items-center gap-3 tracking-wide">
                 Learn More <ArrowDown size={18} />
               </span>
-            </a>
-            <a href="#contact" className="group relative px-8 md:px-10 py-4 md:py-5 bg-transparent border border-black/20 dark:border-white/20 text-black dark:text-white rounded-full overflow-hidden hover:border-tdx-red dark:hover:border-tdx-red transition-all duration-300">
+            </Link>
+            <Link href="#contact" className="group relative px-8 md:px-10 py-4 md:py-5 bg-transparent border border-black/20 dark:border-white/20 text-black dark:text-white rounded-full overflow-hidden hover:border-tdx-red dark:hover:border-tdx-red transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-r from-tdx-red to-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative z-10 font-bold flex items-center gap-3 tracking-wide group-hover:text-white transition-colors">
                 LET'S TALK <ArrowDown className="-rotate-90" size={18} />
               </span>
-            </a>
+            </Link>
           </div>
         </motion.div>
 

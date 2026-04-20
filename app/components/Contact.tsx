@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Mail, MapPin, Send, Sparkles, CheckCircle2, ChevronDown, Facebook, Linkedin, Instagram } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import logo from '../assets/cropped-TDX_LOGO-2.png';
 
 interface CustomSelectProps {
@@ -198,10 +199,10 @@ export const Contact: React.FC = () => {
               Whether you need an AI-powered solution, a cutting-edge web platform, or a complete digital transformation — we're ready to build it.
             </p>
 
-            <a href="#contact-form" className="group inline-flex items-center gap-3 px-10 py-5 bg-tdx-red text-white rounded-full hover:bg-black dark:hover:bg-white dark:hover:text-black transition-all duration-300 font-display font-bold text-sm md:text-base cursor-pointer shadow-lg shadow-tdx-red/20 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]">
+            <Link href="#contact-form" className="group inline-flex items-center gap-3 px-10 py-5 bg-tdx-red text-white rounded-full hover:bg-black dark:hover:bg-white dark:hover:text-black transition-all duration-300 font-display font-bold text-sm md:text-base cursor-pointer shadow-lg shadow-tdx-red/20 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]">
               LET'S TALK
               <ArrowUpRight size={18} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </div>
@@ -232,9 +233,9 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest mb-1">Email</p>
-                    <a href="mailto:hello@tdx.ai" className="font-display font-semibold text-base md:text-lg text-black dark:text-white hover:text-tdx-red transition-colors">
+                    <Link href="mailto:hello@tdx.ai" className="font-display font-semibold text-base md:text-lg text-black dark:text-white hover:text-tdx-red transition-colors">
                       hello@tdx.ai
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -398,9 +399,9 @@ export const Contact: React.FC = () => {
                  ].map((social, i) => {
                    const Icon = social.icon;
                    return (
-                     <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-neutral-400 hover:bg-tdx-red hover:text-white hover:border-tdx-red transition-all cursor-hover">
+                     <Link key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-neutral-400 hover:bg-tdx-red hover:text-white hover:border-tdx-red transition-all cursor-hover">
                        <Icon size={16} />
-                     </a>
+                     </Link>
                    );
                  })}
                </div>
@@ -409,18 +410,18 @@ export const Contact: React.FC = () => {
             <div className="space-y-4">
               <h4 className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest">Navigate</h4>
               <ul className="space-y-2 text-sm font-medium text-neutral-300">
-                <li><a href="#about" className="hover:text-tdx-red transition-colors">About</a></li>
-                <li><a href="#services" className="hover:text-tdx-red transition-colors">Services</a></li>
-                <li><a href="#work" className="hover:text-tdx-red transition-colors">Work</a></li>
+                <li><Link href="#about" className="hover:text-tdx-red transition-colors">About</Link></li>
+                <li><Link href="#services" className="hover:text-tdx-red transition-colors">Services</Link></li>
+                <li><Link href="#work" className="hover:text-tdx-red transition-colors">Work</Link></li>
               </ul>
             </div>
 
             <div className="space-y-4">
               <h4 className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest">More</h4>
               <ul className="space-y-2 text-sm font-medium text-neutral-300">
-                <li><a href="#pricing" className="hover:text-tdx-red transition-colors">Pricing</a></li>
-                <li><a href="#testimonials" className="hover:text-tdx-red transition-colors">Testimonials</a></li>
-                <li><a href="#contact" className="hover:text-tdx-red transition-colors">Contact</a></li>
+                <li><Link href="#pricing" className="hover:text-tdx-red transition-colors">Pricing</Link></li>
+                {/* <li><Link href="#testimonials" className="hover:text-tdx-red transition-colors">Testimonials</Link></li> */}
+                <li><Link href="#contact" className="hover:text-tdx-red transition-colors">Contact</Link></li>
               </ul>
             </div>
           </div>

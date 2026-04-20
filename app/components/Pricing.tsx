@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Zap, ArrowUpRight, Scan } from 'lucide-react';
+import Link from 'next/link';
 
 const pricingData = [
   {
@@ -185,14 +186,6 @@ const ServiceCategory: React.FC<{
                   <div className="hidden md:block col-span-4 text-sm text-neutral-500 dark:text-neutral-400 font-light">
                     {tier.desc}
                   </div>
-
-                  {/* CTA */}
-                  <div className="col-span-3 md:col-span-2 flex justify-end">
-                    <div className="flex items-center gap-1 font-mono text-[10px] md:text-xs text-tdx-red opacity-0 group-hover/tier:opacity-100 transition-opacity cursor-pointer">
-                      <span className="hidden md:inline">SELECT</span>
-                      <ArrowUpRight size={12} />
-                    </div>
-                  </div>
                 </motion.div>
               ))}
             </div>
@@ -292,11 +285,11 @@ export const Pricing: React.FC = () => {
                 </div>
                 
                 <div>
-                  <a href="#contact" className="group relative inline-flex items-center justify-center px-10 py-4 bg-tdx-red text-white font-bold rounded-full overflow-hidden transition-all duration-300 shadow-[0_0_20px_rgba(255,31,31,0.3)] hover:shadow-[0_0_30px_rgba(255,31,31,0.5)]">
+                  <Link href="#contact" className="group relative inline-flex items-center justify-center px-10 py-4 bg-tdx-red text-white font-bold rounded-full overflow-hidden transition-all duration-300 shadow-[0_0_20px_rgba(255,31,31,0.3)] hover:shadow-[0_0_30px_rgba(255,31,31,0.5)]">
                     <span className="relative z-10 flex items-center gap-2">
                       Let's Talk <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -378,10 +371,10 @@ export const Pricing: React.FC = () => {
               // ENTERPRISE SOLUTIONS TAILORED TO YOUR SCALE
             </p>
           </div>
-          <a href="#contact" className="group flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-tdx-red dark:hover:bg-tdx-red dark:hover:text-white transition-all duration-300 font-display font-bold text-sm cursor-pointer">
+          <Link href="#contact" className="group flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-tdx-red dark:hover:bg-tdx-red dark:hover:text-white transition-all duration-300 font-display font-bold text-sm cursor-pointer">
             Get a Quote
             <ArrowUpRight size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

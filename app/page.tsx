@@ -6,7 +6,7 @@ import { Services } from './components/Services';
 import { About } from './components/About';
 import { Pricing } from './components/Pricing';
 import { CaseStudies } from './components/CaseStudies';
-import { Testimonials } from './components/Testimonials';
+// import { Testimonials } from './components/Testimonials';
 import { Contact } from './components/Contact';
 import { CustomCursor } from './components/CustomCursor';
 import { Marquee } from './components/Marquee';
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <Services />
         <Pricing />
         <CaseStudies />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Contact />
       </main>
     </div>

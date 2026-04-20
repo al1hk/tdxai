@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Moon, Sun, User, Layers, Briefcase, DollarSign, MessageSquare, Mail } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import Image from 'next/image';
+import Link from 'next/link';
 import logo from '../assets/cropped-TDX_LOGO-2.png';
 
 const navLinks = [
@@ -12,7 +13,7 @@ const navLinks = [
   { name: 'Services', href: '#services', icon: Layers },
   { name: 'Work', href: '#work', icon: Briefcase },
   { name: 'Pricing', href: '#pricing', icon: DollarSign },
-  { name: 'Testimonials', href: '#testimonials', icon: MessageSquare },
+  // { name: 'Testimonials', href: '#testimonials', icon: MessageSquare },
   { name: 'Contact', href: '#contact', icon: Mail },
 ];
 
@@ -98,14 +99,14 @@ export const Navbar: React.FC = () => {
           }
         `}>
           {/* Logo */}
-          <a href="#" className="flex items-center group">
+          <Link href="#" className="flex items-center group">
             <Image src={logo} alt="TDX" className="h-8 md:h-10 w-auto object-contain" />
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center bg-white/5 rounded-full px-2 p-1 border border-white/10 backdrop-blur-sm relative">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className={`px-5 py-2 text-sm font-medium transition-all duration-300 relative cursor-hover rounded-full
@@ -116,7 +117,7 @@ export const Navbar: React.FC = () => {
                 `}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 

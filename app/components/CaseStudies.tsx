@@ -5,6 +5,8 @@ import { SectionWrapper } from './SectionWrapper';
 import { CaseStudy } from '@/types';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const cases: CaseStudy[] = [
   {
@@ -178,12 +180,11 @@ export const CaseStudies: React.FC = () => {
             <div key={study.id} className="relative w-[600px] aspect-[4/3] flex-shrink-0 group cursor-hover">
               <div className="w-full h-full overflow-hidden rounded-2xl relative">
                 <div className="absolute inset-0 bg-neutral-800 z-0" />
-                <img
+                <Image
                   src={study.image}
-                  alt={study.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 relative z-10"
+                  alt={study.title || "Case Study"}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 relative z-10"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 group-hover:from-black/90 group-hover:via-black/40 transition-colors duration-500 z-20" />
 
@@ -202,9 +203,9 @@ export const CaseStudies: React.FC = () => {
                       )}
                     </div>
                     {study.link ? (
-                      <a href={study.link} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-tdx-red hover:text-white shrink-0 ml-4">
+                      <Link href={study.link} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-tdx-red hover:text-white shrink-0 ml-4">
                         <ArrowUpRight className="text-black w-5 h-5" />
-                      </a>
+                      </Link>
                     ) : (
                       <button className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shrink-0 ml-4">
                         <ArrowUpRight className="text-black w-5 h-5" />
@@ -219,9 +220,9 @@ export const CaseStudies: React.FC = () => {
           {/* End Card */}
           <div className="w-[400px] flex-shrink-0 flex flex-col justify-center items-center text-center text-white">
             <h3 className="font-display font-bold text-4xl mb-6">Your Project Next?</h3>
-            <a href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-white hover:text-black transition-colors duration-300 cursor-hover">
+            <Link href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-white hover:text-black transition-colors duration-300 cursor-hover">
               Start Discussion
-            </a>
+            </Link>
           </div>
         </motion.div>
 
@@ -259,12 +260,11 @@ export const CaseStudies: React.FC = () => {
               <div key={study.id} className="case-card relative w-[85vw] flex-shrink-0 snap-center aspect-[4/3] group">
                 <div className="w-full h-full overflow-hidden rounded-2xl relative">
                   <div className="absolute inset-0 bg-neutral-800 z-0" />
-                  <img
+                  <Image
                     src={study.image}
-                    alt={study.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover relative z-10"
+                    alt={study.title || "Case Study Thumbnail"}
+                    fill
+                    className="object-cover relative z-10"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 z-20" />
 
@@ -280,9 +280,9 @@ export const CaseStudies: React.FC = () => {
                         </p>
                       </div>
                       {study.link && (
-                        <a href={study.link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0 ml-3">
+                        <Link href={study.link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0 ml-3">
                           <ArrowUpRight className="text-black w-4 h-4" />
-                        </a>
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -339,9 +339,9 @@ export const CaseStudies: React.FC = () => {
           {/* End CTA */}
           <div className="flex flex-col items-center text-center text-white mt-12 px-6">
             <h3 className="font-display font-bold text-3xl mb-6">Your Project Next?</h3>
-            <a href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-white hover:text-black transition-colors duration-300">
+            <Link href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-white hover:text-black transition-colors duration-300">
               Start Discussion
-            </a>
+            </Link>
           </div>
         </div>
       </div>

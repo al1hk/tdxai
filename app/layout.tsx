@@ -19,8 +19,23 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TDX | Intelligent Digital Systems",
-  description: "TDX | Intelligent Digital Systems",
+  title: "TDX | Intelligent Digital Systems & AI Solutions",
+  description: "TDX is a premier digital agency specializing in intelligent digital systems, AI-driven services, web development, blockchain, and business automation.",
+  keywords: ["AI solutions", "digital systems", "web development", "blockchain", "business automation", "TDX AI", "agency"],
+  openGraph: {
+    title: "TDX | Intelligent Digital Systems",
+    description: "Architecting intelligent digital systems. We provide AI services, blockchain development, and advanced web solutions.",
+    url: "https://tdx.ai",
+    siteName: "TDX",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TDX | Intelligent Digital Systems",
+    description: "Architecting intelligent digital systems. We provide AI services, blockchain development, and advanced web solutions.",
+  },
+  metadataBase: new URL("https://tdx.ai"),
 };
 
 export default function RootLayout({
