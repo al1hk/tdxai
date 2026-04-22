@@ -432,7 +432,7 @@ export const Contact: React.FC = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 font-mono text-[10px] text-neutral-500">
-             <p className="mb-4 md:mb-0">© 2024 TDX Agency. All rights reserved.</p>
+             <p className="mb-4 md:mb-0">© 2026 TDX AI. All rights reserved.</p>
           </div>
         </div>
       </footer>

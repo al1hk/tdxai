@@ -25,7 +25,7 @@ const storyChapters = [
   },
   {
     highlight: "The Legacy",
-    text: "After countless days of hard come smart work and dedication, now TDX Labs is known for delivering matchless and innovative business solutions."
+    text: "After countless days of hard come smart work and dedication, now TDX AI is known for delivering matchless and innovative business solutions."
   }
 ];
 

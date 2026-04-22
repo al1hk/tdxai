@@ -253,7 +253,7 @@ export const HeroAI: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tdx-red opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-tdx-red"></span>
               </span>
-              <span className="font-mono text-xs font-bold tracking-widest uppercase">TDX Labs</span>
+              <span className="font-mono text-xs font-bold tracking-widest uppercase">TDX AI</span>
             </div>
             <div className="h-[1px] w-12 bg-black/10 dark:bg-white/10" />
             <span className="font-mono text-xs text-gray-400">Since 2014</span>

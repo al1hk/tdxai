@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="flex justify-between items-center pt-8 border-t border-gray-200 dark:border-white/10 font-mono text-xs text-gray-400">
-          <p>© 2024 TDX Agency.</p>
+          <p>© 2026 TDX AI. All rights reserved.</p>
           <p>SYSTEM_STATUS: ONLINE</p>
         </div>
       </div>
