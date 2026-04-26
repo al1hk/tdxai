@@ -326,7 +326,7 @@ export const HeroAI: React.FC = () => {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gray-400">Scroll to Explore</span>
          <div className="w-[1px] h-12 bg-gray-200 overflow-hidden relative">
-           <div className="absolute top-0 left-0 w-full h-1/2 bg-black animate-dropdown" />
+           <div className="absolute top-0 left-0 w-full h-1/2 bg-black dark:bg-white animate-dropdown" />
          </div>
       </div>
     </section>

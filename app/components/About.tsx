@@ -38,21 +38,23 @@ export const About: React.FC = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* PART 1: HERO — "Our Story" */}
       {/* ═══════════════════════════════════════════ */}
-      <div className="relative z-20 bg-black text-white overflow-hidden">
+      <div className="relative z-20 bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 overflow-hidden">
         
         {/* Layered ambient glows */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-20%] right-[-10%] w-[900px] h-[900px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.07) 0%, transparent 70%)' }} />
-          <div className="absolute bottom-[-30%] left-[-15%] w-[700px] h-[700px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.03) 0%, transparent 70%)' }} />
-          <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.04) 0%, transparent 70%)' }} />
+          <div className="absolute top-[-20%] right-[-10%] w-[1000px] h-[1000px] rounded-full opacity-60 dark:opacity-100" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.1) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-[-30%] left-[-15%] w-[800px] h-[800px] rounded-full opacity-40 dark:opacity-100" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%)' }} />
+          <div className="absolute top-[40%] left-[30%] w-[600px] h-[600px] rounded-full opacity-50 dark:opacity-100" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.08) 0%, transparent 70%)' }} />
+          {/* Subtle light theme gradient sweep */}
+          <div className="absolute inset-0 bg-gradient-to-br from-tdx-red/[0.02] via-transparent to-transparent dark:hidden" />
         </div>
         
         {/* Grid texture */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        <div className="absolute inset-0 opacity-[0.06] dark:opacity-[0.04] pointer-events-none"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+              linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
             `,
             backgroundSize: '60px 60px'
           }}
@@ -98,8 +100,8 @@ export const About: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="max-w-3xl"
           >
-            <p className="font-display font-light text-xl md:text-2xl lg:text-[1.75rem] leading-[1.6] text-neutral-400 tracking-tight">
-              A decade of building <span className="text-white font-medium">transformative technology</span> — from a small IT service provider to a global force in <span className="text-white font-medium">digital innovation.</span>
+            <p className="font-display font-light text-xl md:text-2xl lg:text-[1.75rem] leading-[1.6] text-neutral-600 dark:text-neutral-400 tracking-tight">
+              A decade of building <span className="text-black dark:text-white font-medium">transformative technology</span> — from a small IT service provider to a global force in <span className="text-black dark:text-white font-medium">digital innovation.</span>
             </p>
           </motion.div>
 
@@ -110,11 +112,13 @@ export const About: React.FC = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* PART 2: TIMELINE JOURNEY */}
       {/* ═══════════════════════════════════════════ */}
-      <div className="relative z-20 bg-black text-white">
+      <div className="relative z-20 bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
         
         {/* Persistent ambient glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-[20%] right-0 w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.05) 0%, transparent 70%)' }} />
+          <div className="absolute top-[20%] right-0 w-[700px] h-[700px] rounded-full opacity-60 dark:opacity-100" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.12) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-0 left-[10%] w-[600px] h-[600px] rounded-full opacity-50 dark:opacity-100" style={{ background: 'radial-gradient(circle, rgba(255,31,31,0.08) 0%, transparent 70%)' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,31,31,0.03),transparent_70%)] dark:hidden" />
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 py-24 md:py-40">
@@ -133,7 +137,7 @@ export const About: React.FC = () => {
               </div>
               <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-[0.3em]">The Journey</span>
             </div>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-white/10 to-transparent" />
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-black/10 dark:from-white/10 to-transparent" />
           </motion.div>
 
           {/* Timeline cards */}
@@ -155,7 +159,7 @@ export const About: React.FC = () => {
                 >
                   {/* Timeline Node (desktop) */}
                   <div className="absolute left-1/2 -translate-x-1/2 top-6 hidden lg:flex flex-col items-center z-20">
-                    <div className="w-4 h-4 rounded-full bg-black border-2 border-tdx-red shadow-[0_0_20px_rgba(255,31,31,0.3)]" />
+                    <div className="w-4 h-4 rounded-full bg-white dark:bg-black border-2 border-tdx-red shadow-[0_0_20px_rgba(255,31,31,0.3)]" />
                   </div>
 
                   {/* Content side */}
@@ -163,11 +167,11 @@ export const About: React.FC = () => {
                     
                     {/* Chapter index badge */}
                     <div className={`flex items-center gap-3 mb-6 ${isLeft ? 'lg:justify-end' : 'lg:justify-start'}`}>
-                      <div className="lg:hidden w-3 h-3 rounded-full bg-black border-2 border-tdx-red shadow-[0_0_15px_rgba(255,31,31,0.3)]" />
+                      <div className="lg:hidden w-3 h-3 rounded-full bg-white dark:bg-black border-2 border-tdx-red shadow-[0_0_15px_rgba(255,31,31,0.3)]" />
                       <span className="font-mono text-tdx-red text-xs md:text-sm font-bold tracking-[0.2em]">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <div className={`w-12 h-[1px] bg-gradient-to-r ${isLeft ? 'from-transparent to-white/20 lg:from-white/20 lg:to-transparent' : 'from-white/20 to-transparent'}`} />
+                      <div className={`w-12 h-[1px] bg-gradient-to-r ${isLeft ? 'from-transparent to-black/10 dark:to-white/20 lg:from-black/10 dark:lg:from-white/20 lg:to-transparent' : 'from-black/10 dark:from-white/20 to-transparent'}`} />
                     </div>
 
                     {/* Glassmorphism card */}
@@ -175,16 +179,16 @@ export const About: React.FC = () => {
                       {/* Hover glow */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-tdx-red/20 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                       
-                      <div className="relative bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl md:rounded-3xl p-8 md:p-10 group-hover:border-white/[0.12] group-hover:bg-white/[0.05] transition-all duration-500">
+                      <div className="relative bg-neutral-50 dark:bg-white/[0.03] backdrop-blur-sm border border-neutral-200 dark:border-white/[0.06] rounded-2xl md:rounded-3xl p-8 md:p-10 group-hover:border-tdx-red/30 dark:group-hover:border-white/[0.12] group-hover:bg-neutral-100/50 dark:group-hover:bg-white/[0.05] transition-all duration-500">
                         
                         {/* Decorative corner */}
                         <div className={`absolute top-0 ${isLeft ? 'right-0 border-r-2 border-t-2 rounded-tr-3xl' : 'left-0 border-l-2 border-t-2 rounded-tl-3xl'} w-12 h-12 border-tdx-red/20 pointer-events-none`} />
                         
-                        <h3 className={`font-display font-bold text-2xl md:text-3xl lg:text-4xl text-white mb-4 tracking-tight ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
+                        <h3 className={`font-display font-bold text-2xl md:text-3xl lg:text-4xl text-black dark:text-white mb-4 tracking-tight ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
                           {chapter.highlight}
                         </h3>
                         
-                        <p className={`font-display font-light text-base md:text-lg leading-[1.7] text-neutral-400 group-hover:text-neutral-300 transition-colors duration-500 ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
+                        <p className={`font-display font-light text-base md:text-lg leading-[1.7] text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-neutral-300 transition-colors duration-500 ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}>
                           {chapter.text}
                         </p>
                       </div>

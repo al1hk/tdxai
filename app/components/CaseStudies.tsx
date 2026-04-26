@@ -145,17 +145,18 @@ export const CaseStudies: React.FC = () => {
   }, [isMobile]);
 
   return (
-    <section ref={targetRef} id="work" className="relative z-20 h-auto md:h-[300vh] bg-black">
+    <section ref={targetRef} id="work" className="relative z-20 h-auto md:h-[300vh] bg-white dark:bg-black transition-colors duration-300">
       <div className="relative md:sticky top-0 h-auto md:h-screen flex flex-col md:flex-row items-center overflow-hidden">
 
         {/* Ambient Glows */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden hidden dark:block z-0">
-          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-tdx-red/10 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-tdx-red/[0.08] dark:bg-tdx-red/10 rounded-full blur-[140px] -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-1/4 right-1/4 w-[800px] h-[800px] bg-tdx-red/[0.06] dark:bg-tdx-red/10 rounded-full blur-[140px] translate-x-1/2 translate-y-1/2" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,31,31,0.02),transparent_70%)] dark:hidden" />
         </div>
 
         {/* Background Overlay Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-display font-bold text-neutral-800/20 whitespace-nowrap select-none pointer-events-none hidden md:block">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-display font-bold text-neutral-200/50 dark:text-neutral-800/20 whitespace-nowrap select-none pointer-events-none hidden md:block">
           SELECTED WORKS
         </div>
 
@@ -165,15 +166,15 @@ export const CaseStudies: React.FC = () => {
           className={`hidden md:flex flex-row gap-12 px-24 py-0`}
         >
           {/* Header Card */}
-          <div className="w-[400px] flex-shrink-0 flex flex-col justify-center text-white">
+          <div className="w-[400px] flex-shrink-0 flex flex-col justify-center text-black dark:text-white">
             <span className="text-tdx-red font-mono text-sm tracking-widest uppercase mb-4">03 // Portfolio</span>
             <h2 className="font-display font-bold text-6xl mb-6">
               Our <br /> Work
             </h2>
-            <p className="text-gray-400 leading-relaxed mb-8 max-w-sm">
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8 max-w-sm">
               Real solutions we've built for businesses worldwide — from logistics platforms to fintech apps.
             </p>
-            <div className="flex items-center gap-2 text-sm font-mono text-gray-500">
+            <div className="flex items-center gap-2 text-sm font-mono text-gray-400 dark:text-gray-500">
               <span className="w-2 h-2 bg-tdx-red rounded-full animate-pulse" />
               SCROLL TO EXPLORE
             </div>
@@ -224,9 +225,9 @@ export const CaseStudies: React.FC = () => {
           ))}
 
           {/* End Card */}
-          <div className="w-[400px] flex-shrink-0 flex flex-col justify-center items-center text-center text-white">
+          <div className="w-[400px] flex-shrink-0 flex flex-col justify-center items-center text-center text-black dark:text-white">
             <h3 className="font-display font-bold text-4xl mb-6">Your Project Next?</h3>
-            <Link href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-white hover:text-black transition-colors duration-300 cursor-hover">
+            <Link href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-black dark:hover:bg-white dark:hover:text-black transition-colors duration-300 cursor-hover">
               Start Discussion
             </Link>
           </div>
@@ -235,12 +236,12 @@ export const CaseStudies: React.FC = () => {
         {/* Mobile: swipeable horizontal scroll */}
         <div className="md:hidden flex flex-col w-full py-20 px-0">
           {/* Mobile Header */}
-          <div className="px-6 mb-8 text-white">
+          <div className="px-6 mb-8 text-black dark:text-white">
             <span className="text-tdx-red font-mono text-sm tracking-widest uppercase mb-4 block">03 // Portfolio</span>
             <h2 className="font-display font-bold text-5xl mb-4">
               Our Work
             </h2>
-            <p className="text-gray-400 leading-relaxed max-w-sm">
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed max-w-sm">
               Real solutions we've built for businesses worldwide.
             </p>
           </div>
@@ -309,7 +310,7 @@ export const CaseStudies: React.FC = () => {
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     i === activeIndex
                       ? 'w-8 bg-tdx-red'
-                      : 'w-1.5 bg-white/20'
+                      : 'w-1.5 bg-black/10 dark:bg-white/20'
                   }`}
                 />
               ))}
@@ -321,8 +322,8 @@ export const CaseStudies: React.FC = () => {
                 onClick={() => scrollToCard('prev')}
                 className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-200
                   ${activeIndex === 0
-                    ? 'border-white/10 text-white/20'
-                    : 'border-white/30 text-white hover:bg-white hover:text-black'
+                    ? 'border-black/10 dark:border-white/10 text-black/10 dark:text-white/20'
+                    : 'border-black/20 dark:border-white/30 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'
                   }
                 `}
                 disabled={activeIndex === 0}
@@ -333,8 +334,8 @@ export const CaseStudies: React.FC = () => {
                 onClick={() => scrollToCard('next')}
                 className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-200
                   ${activeIndex === cases.length - 1
-                    ? 'border-white/10 text-white/20'
-                    : 'border-white/30 text-white hover:bg-white hover:text-black'
+                    ? 'border-black/10 dark:border-white/10 text-black/10 dark:text-white/20'
+                    : 'border-black/20 dark:border-white/30 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'
                   }
                 `}
                 disabled={activeIndex === cases.length - 1}
@@ -345,9 +346,9 @@ export const CaseStudies: React.FC = () => {
           </div>
 
           {/* End CTA */}
-          <div className="flex flex-col items-center text-center text-white mt-12 px-6">
+          <div className="flex flex-col items-center text-center text-black dark:text-white mt-12 px-6">
             <h3 className="font-display font-bold text-3xl mb-6">Your Project Next?</h3>
-            <Link href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-white hover:text-black transition-colors duration-300">
+            <Link href="#contact" className="px-8 py-4 bg-tdx-red text-white rounded-full font-bold hover:bg-black dark:hover:bg-white dark:hover:text-black transition-colors duration-300">
               Start Discussion
             </Link>
           </div>

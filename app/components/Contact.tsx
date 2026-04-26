@@ -1,7 +1,8 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Mail, MapPin, Send, Sparkles, CheckCircle2, ChevronDown, Facebook, Linkedin, Instagram } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Send, Sparkles, CheckCircle2, ChevronDown, Facebook, Linkedin, Instagram, ShieldAlert } from 'lucide-react';
+import ReCAPTCHA from "react-google-recaptcha";
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../assets/cropped-TDX_LOGO-2.png';
@@ -100,7 +101,11 @@ export const Contact: React.FC = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -108,30 +113,54 @@ export const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    if (!captchaToken) {
+      setError("Please complete the CAPTCHA to send your message.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
     
     try {
-      const response = await fetch("/api/contact", {
+      // EmailJS REST API
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify(formState)
+        body: JSON.stringify({
+            service_id: "service_y260fsv",
+            template_id: "template_xz13njd",
+            user_id: "sMPIhBV91t4eDaUPt",
+            template_params: {
+                ...formState,
+                'g-recaptcha-response': captchaToken
+            }
+        })
       });
-      
-      const data = await response.json();
+
       if (!response.ok) {
-        console.error("Submission failed:", data.error);
+        const errorText = await response.text();
+        throw new Error(errorText || "Submission failed. Please try again.");
       }
-    } catch (error) {
-      console.error(error);
+
+      setIsSubmitted(true);
+      setFormState({ name: '', email: '', service: '', budget: '', message: '' });
+      
+      setTimeout(() => {
+          setIsSubmitted(false);
+      }, 5000);
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setError(err.message || "An unexpected error occurred. Please try again.");
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setTimeout(() => {
-        setIsSubmitted(false);
-        setFormState({ name: '', email: '', service: '', budget: '', message: '' });
-    }, 4000);
   };
 
   const services = [
@@ -364,18 +393,39 @@ export const Contact: React.FC = () => {
                       className={`${inputBaseClass} ${focusedField === 'message' ? inputFocusClass : inputIdleClass} resize-none`}
                     />
                   </div>
+                  
+                  {/* reCAPTCHA */}
+                  <div className="flex flex-col gap-4">
+                    <label className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.15em] block">
+                      Spam Protection <span className="text-tdx-red">*</span>
+                    </label>
+                    <div className="bg-white/5 p-4 rounded-2xl border border-white/5 inline-block w-full md:w-auto">
+                        <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                            onChange={(token) => setCaptchaToken(token)}
+                            theme="dark"
+                        />
+                    </div>
+                  </div>
 
                   {/* Submit */}
                   <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-4">
                     <p className="font-mono text-[10px] text-neutral-400 tracking-wide order-2 md:order-1">
                       We respond within 24 hours
                     </p>
+                    {error && (
+                      <p className="font-mono text-[10px] text-tdx-red mt-2 animate-pulse">
+                        Error: {error}
+                      </p>
+                    )}
                     <button
                       type="submit"
-                      className="order-1 md:order-2 group w-full md:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-tdx-red dark:hover:bg-tdx-red dark:hover:text-white transition-all duration-300 font-display font-bold text-sm md:text-base cursor-pointer hover:shadow-lg hover:shadow-tdx-red/20 hover:scale-[1.02] active:scale-[0.98]"
+                      disabled={isSubmitting}
+                      className={`order-1 md:order-2 group w-full md:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-black dark:bg-white text-white dark:text-black rounded-full hover:bg-tdx-red dark:hover:bg-tdx-red dark:hover:text-white transition-all duration-300 font-display font-bold text-sm md:text-base cursor-pointer hover:shadow-lg hover:shadow-tdx-red/20 hover:scale-[1.02] active:scale-[0.98] ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                      Send Message
-                      <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      <Send size={16} className={`group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform ${isSubmitting ? 'animate-bounce' : ''}`} />
                     </button>
                   </div>
                 </form>
