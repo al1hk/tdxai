@@ -108,6 +108,13 @@ export const AIBg: React.FC = () => {
         }
         lastTime = t;
 
+        // Disable heavy background physics on mobile
+        if (width < 768) {
+          ctx.clearRect(0, 0, width, height);
+          rafId = requestAnimationFrame(animate);
+          return;
+        }
+
         ctx.clearRect(0, 0, width, height);
         
         // Draw grid lines first (faint)

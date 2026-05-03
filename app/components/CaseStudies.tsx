@@ -210,11 +210,11 @@ export const CaseStudies: React.FC = () => {
                       )}
                     </div>
                     {study.link ? (
-                      <Link href={study.link} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-tdx-red hover:text-white shrink-0 ml-4">
+                      <Link href={study.link} target="_blank" rel="noopener noreferrer" aria-label={`View ${study.title} details`} className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-tdx-red hover:text-white shrink-0 ml-4">
                         <ArrowUpRight className="text-black w-5 h-5" />
                       </Link>
                     ) : (
-                      <button className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shrink-0 ml-4">
+                      <button aria-label={`View ${study.title} details`} className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shrink-0 ml-4">
                         <ArrowUpRight className="text-black w-5 h-5" />
                       </button>
                     )}
@@ -289,7 +289,7 @@ export const CaseStudies: React.FC = () => {
                         </p>
                       </div>
                       {study.link && (
-                        <Link href={study.link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0 ml-3">
+                        <Link href={study.link} target="_blank" rel="noopener noreferrer" aria-label={`View ${study.title} details`} className="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0 ml-3">
                           <ArrowUpRight className="text-black w-4 h-4" />
                         </Link>
                       )}
@@ -320,6 +320,7 @@ export const CaseStudies: React.FC = () => {
             <div className="flex gap-3">
               <button
                 onClick={() => scrollToCard('prev')}
+                aria-label="Previous Case Study"
                 className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-200
                   ${activeIndex === 0
                     ? 'border-black/10 dark:border-white/10 text-black/10 dark:text-white/20'
@@ -332,6 +333,7 @@ export const CaseStudies: React.FC = () => {
               </button>
               <button
                 onClick={() => scrollToCard('next')}
+                aria-label="Next Case Study"
                 className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-200
                   ${activeIndex === cases.length - 1
                     ? 'border-black/10 dark:border-white/10 text-black/10 dark:text-white/20'

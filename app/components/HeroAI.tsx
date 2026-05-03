@@ -146,6 +146,13 @@ export const HeroAI: React.FC = () => {
         }
         lastTime = t - (delta % frameMs);
 
+        // Turn off heavy canvas animation on mobile to save performance
+        if (width < 768) {
+          ctx.clearRect(0, 0, width, height);
+          animId = requestAnimationFrame(animate);
+          return;
+        }
+
         ctx.clearRect(0, 0, width, height);
         
         const mX = mouseX.current;

@@ -96,7 +96,7 @@ export const Navbar: React.FC = () => {
           }
         `}>
           {/* Logo */}
-          <Link href="#" className="flex items-center group">
+          <Link href="#" className="flex items-center group" aria-label="Home">
             <Image src={logo} alt="TDX" width={120} height={40} className="h-8 md:h-10 w-auto object-contain" priority />
           </Link>
 
@@ -139,6 +139,7 @@ export const Navbar: React.FC = () => {
           <button 
             className="md:hidden text-white p-2 bg-white/5 border border-white/10 rounded-full cursor-hover"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

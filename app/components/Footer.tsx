@@ -24,16 +24,23 @@ export const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-1">
              <div className="font-display font-bold text-2xl tracking-tight mb-6 text-gray-900 dark:text-white">TDX</div>
              <div className="flex gap-4">
-               {[Twitter, Linkedin, Github].map((Icon, i) => (
-                 <Link key={i} href="#" className="w-10 h-10 border border-gray-200 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black dark:hover:border-white transition-all cursor-hover">
-                   <Icon size={16} />
-                 </Link>
-               ))}
+               {[
+                 { icon: Twitter, name: 'Twitter' },
+                 { icon: Linkedin, name: 'LinkedIn' },
+                 { icon: Github, name: 'GitHub' }
+               ].map((social, i) => {
+                 const Icon = social.icon;
+                 return (
+                   <Link key={i} href="#" aria-label={social.name} className="w-10 h-10 border border-gray-200 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black dark:hover:border-white transition-all cursor-hover">
+                     <Icon size={16} />
+                   </Link>
+                 );
+               })}
              </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-mono text-xs text-gray-400 uppercase tracking-widest">Sitemap</h4>
+            <h4 className="font-mono text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest">Sitemap</h4>
             <ul className="space-y-2 text-sm font-medium text-gray-900 dark:text-white">
               <li><Link href="#" className="hover:text-tdx-red transition-colors">Home</Link></li>
               <li><Link href="#" className="hover:text-tdx-red transition-colors">Capabilities</Link></li>
@@ -43,7 +50,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-mono text-xs text-gray-400 uppercase tracking-widest">Legal</h4>
+            <h4 className="font-mono text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest">Legal</h4>
             <ul className="space-y-2 text-sm font-medium text-gray-900 dark:text-white">
               <li><Link href="#" className="hover:text-tdx-red transition-colors">Privacy Policy</Link></li>
               <li><Link href="#" className="hover:text-tdx-red transition-colors">Terms of Service</Link></li>
@@ -51,7 +58,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-mono text-xs text-gray-400 uppercase tracking-widest">Contact</h4>
+            <h4 className="font-mono text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest">Contact</h4>
             <p className="text-sm font-medium text-gray-900 dark:text-white">
               hello@tdx.ai <br />
               +1 (555) 000-0000
@@ -59,7 +66,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center pt-8 border-t border-gray-200 dark:border-white/10 font-mono text-xs text-gray-400">
+        <div className="flex justify-between items-center pt-8 border-t border-gray-200 dark:border-white/10 font-mono text-xs text-gray-500 dark:text-gray-400">
           <p>© 2026 TDX AI. All rights reserved.</p>
           <p>SYSTEM_STATUS: ONLINE</p>
         </div>

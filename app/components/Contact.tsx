@@ -48,7 +48,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
   return (
     <div className="relative" ref={containerRef}>
-      <label className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
+                    <label className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
         {label} {required && <span className="text-tdx-red">*</span>}
       </label>
       <div 
@@ -317,7 +317,7 @@ export const Contact: React.FC = () => {
                   {/* Name + Email Row */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="relative">
-                      <label className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
+                                    <label className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
                         Your Name <span className="text-tdx-red">*</span>
                       </label>
                       <input
@@ -333,7 +333,7 @@ export const Contact: React.FC = () => {
                       />
                     </div>
                     <div className="relative">
-                      <label className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
+                                    <label className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
                         Email Address <span className="text-tdx-red">*</span>
                       </label>
                       <input
@@ -378,7 +378,7 @@ export const Contact: React.FC = () => {
 
                   {/* Message */}
                   <div className="relative">
-                    <label className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
+                                  <label className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.15em] mb-2 block">
                       Project Details <span className="text-tdx-red">*</span>
                     </label>
                     <textarea
@@ -454,7 +454,7 @@ export const Contact: React.FC = () => {
                  ].map((social, i) => {
                    const Icon = social.icon;
                    return (
-                     <Link key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-neutral-400 hover:bg-tdx-red hover:text-white hover:border-tdx-red transition-all cursor-hover">
+                     <Link key={i} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.name} className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center text-neutral-400 hover:bg-tdx-red hover:text-white hover:border-tdx-red transition-all cursor-hover">
                        <Icon size={16} />
                      </Link>
                    );
