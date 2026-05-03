@@ -107,6 +107,23 @@ export const Contact: React.FC = () => {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
+  const [loadCaptcha, setLoadCaptcha] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setLoadCaptcha(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    if (formRef.current) observer.observe(formRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormState(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -308,7 +325,7 @@ export const Contact: React.FC = () => {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
                   <div className="flex items-center gap-2 mb-4">
                     <Send size={14} className="text-tdx-red" />
                     <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.2em]">Send a Message</span>
@@ -399,13 +416,17 @@ export const Contact: React.FC = () => {
                     <label className="font-mono text-[10px] text-neutral-400 uppercase tracking-[0.15em] block">
                       Spam Protection <span className="text-tdx-red">*</span>
                     </label>
-                    <div className="bg-white/5 p-4 rounded-2xl border border-white/5 inline-block w-full md:w-auto">
-                        <ReCAPTCHA
-                            ref={recaptchaRef}
-                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-                            onChange={(token) => setCaptchaToken(token)}
-                            theme="dark"
-                        />
+                    <div className="bg-white/5 p-4 rounded-2xl border border-white/5 inline-block w-full md:w-auto min-h-[78px] min-w-[304px]">
+                        {loadCaptcha ? (
+                          <ReCAPTCHA
+                              ref={recaptchaRef}
+                              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                              onChange={(token) => setCaptchaToken(token)}
+                              theme="dark"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full w-full text-xs text-neutral-500">Loading security check...</div>
+                        )}
                     </div>
                   </div>
 
