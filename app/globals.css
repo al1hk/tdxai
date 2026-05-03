@@ -124,3 +124,62 @@ html {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ═══ Performance: CSS animations replacing framer-motion ═══ */
+
+/* Navbar entrance — replaces motion.nav initial/animate */
+.navbar-enter {
+  animation: navbar-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes navbar-enter {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile menu overlay — replaces AnimatePresence */
+.mobile-menu-enter {
+  animation: mobile-menu-in 0.3s ease-out both;
+}
+
+@keyframes mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile menu items — staggered fade-in */
+.mobile-menu-item {
+  animation: mobile-item-in 0.4s ease-out both;
+}
+
+@keyframes mobile-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══ Performance: GPU layer promotion for animated elements ═══ */
+
+/* Marquee continuous animations — avoid layout thrashing */
+.animate-marquee,
+.animate-marquee-reverse {
+  will-change: transform;
+  backface-visibility: hidden;
+}

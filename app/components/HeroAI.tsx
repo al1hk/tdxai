@@ -1,29 +1,53 @@
 "use client";
 
 import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
-import { ArrowDown, Zap, CircleDashed, Fingerprint } from 'lucide-react';
+import { ArrowDown, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 const NOISE_DATA_URI = "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==";
 
 export const HeroAI: React.FC = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const reactorRef = useRef<HTMLDivElement>(null);
   
   // Mouse position tracking for canvas interaction
   const mouseX = useRef(0);
   const mouseY = useRef(0);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  // Scroll-based parallax (replaces framer-motion useScroll/useTransform)
+  useEffect(() => {
+    const section = ref.current;
+    const textEl = textRef.current;
+    const reactorEl = reactorRef.current;
+    if (!section) return;
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const rect = section.getBoundingClientRect();
+        const h = section.offsetHeight || 1;
+        const progress = Math.max(0, Math.min(1, -rect.top / h));
 
+        if (textEl) {
+          textEl.style.transform = `translate3d(0, ${progress * 50}%, 0)`;
+          textEl.style.opacity = String(Math.max(0, 1 - progress * 2));
+        }
+        if (reactorEl) {
+          reactorEl.style.transform = `rotate(${progress * 45}deg)`;
+        }
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Throttled mousemove
   useEffect(() => {
     let rafId: number | null = null;
     let latestX = 0;
@@ -47,7 +71,7 @@ export const HeroAI: React.FC = () => {
     };
   }, []);
 
-  // Neural Network Canvas Animation — pauses when hero is scrolled out of view
+  // Neural Network Canvas Animation — deferred start to avoid blocking hydration
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
@@ -61,6 +85,7 @@ export const HeroAI: React.FC = () => {
     let height = window.innerHeight;
     let running = true;
     let inViewport = true;
+    let animId = 0;
     
     const resize = () => {
       width = window.innerWidth;
@@ -86,131 +111,135 @@ export const HeroAI: React.FC = () => {
     window.addEventListener('resize', resize, { passive: true });
     document.addEventListener('visibilitychange', handleVisibility);
 
-    // Particles Configuration — optimized for smooth 60fps
-    const particles: {x: number, y: number, vx: number, vy: number, size: number}[] = [];
-    const particleCount = width > 1200 ? 30 : 20;
-    const connectionDistance = 160;
-    const mouseInteractionDistance = 200;
-    const connectionDistanceSq = connectionDistance * connectionDistance;
+    // Defer animation start by 1s so hydration completes first
+    const startTimer = setTimeout(() => {
+      // Particles Configuration — optimized for smooth 60fps
+      const particles: {x: number, y: number, vx: number, vy: number, size: number}[] = [];
+      const particleCount = width > 1200 ? 30 : 20;
+      const connectionDistance = 160;
+      const mouseInteractionDistance = 200;
+      const connectionDistanceSq = connectionDistance * connectionDistance;
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        size: Math.random() * 1.2 + 0.5
-      });
-    }
-
-    let lastTime = 0;
-    const frameMs = 1000 / 60;
-
-    const animate = (t: number) => {
-      if (!running || !inViewport) {
-        requestAnimationFrame(animate);
-        return;
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          size: Math.random() * 1.2 + 0.5
+        });
       }
 
-      const delta = t - lastTime;
-      if (delta < frameMs) {
-        requestAnimationFrame(animate);
-        return;
-      }
-      lastTime = t - (delta % frameMs);
+      let lastTime = 0;
+      const frameMs = 1000 / 60;
 
-      ctx.clearRect(0, 0, width, height);
-      
-      const mX = mouseX.current;
-      const mY = mouseY.current;
-
-      // Batch connection lines into a single path per style
-      const faintLines: [number, number, number, number, number][] = [];
-      const redLines: [number, number, number, number, number][] = [];
-
-      // Update and Draw Particles
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Bounce off edges
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        // Interaction with mouse: push away gently
-        const dx = mX - p.x;
-        const dy = mY - p.y;
-        const distSq = dx * dx + dy * dy;
-        
-        if (distSq < mouseInteractionDistance * mouseInteractionDistance) {
-           const dist = Math.sqrt(distSq);
-           const force = (mouseInteractionDistance - dist) / mouseInteractionDistance;
-           const angle = Math.atan2(dy, dx);
-           p.x -= Math.cos(angle) * force * 0.8;
-           p.y -= Math.sin(angle) * force * 0.8;
+      const animate = (t: number) => {
+        if (!running || !inViewport) {
+          animId = requestAnimationFrame(animate);
+          return;
         }
 
-        // Draw Node
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
+        const delta = t - lastTime;
+        if (delta < frameMs) {
+          animId = requestAnimationFrame(animate);
+          return;
+        }
+        lastTime = t - (delta % frameMs);
 
-        // Collect connection lines
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx2 = p.x - p2.x;
-          const dy2 = p.y - p2.y;
-          const dist2Sq = dx2 * dx2 + dy2 * dy2;
+        ctx.clearRect(0, 0, width, height);
+        
+        const mX = mouseX.current;
+        const mY = mouseY.current;
 
-          if (dist2Sq < connectionDistanceSq) {
-            const dist2 = Math.sqrt(dist2Sq);
-            const alpha = 1 - dist2 / connectionDistance;
-           
-            // Check if close to mouse
-            const m2dx = mX - p2.x;
-            const m2dy = mY - p2.y;
-            const mouseDist = Math.sqrt(distSq) + Math.sqrt(m2dx * m2dx + m2dy * m2dy);
-           
-            if (mouseDist < 400) {
-              redLines.push([p.x, p.y, p2.x, p2.y, alpha]);
-            } else {
-              faintLines.push([p.x, p.y, p2.x, p2.y, alpha]);
+        // Batch connection lines into a single path per style
+        const faintLines: [number, number, number, number, number][] = [];
+        const redLines: [number, number, number, number, number][] = [];
+
+        // Update and Draw Particles
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Bounce off edges
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          // Interaction with mouse: push away gently
+          const dx = mX - p.x;
+          const dy = mY - p.y;
+          const distSq = dx * dx + dy * dy;
+          
+          if (distSq < mouseInteractionDistance * mouseInteractionDistance) {
+             const dist = Math.sqrt(distSq);
+             const force = (mouseInteractionDistance - dist) / mouseInteractionDistance;
+             const angle = Math.atan2(dy, dx);
+             p.x -= Math.cos(angle) * force * 0.8;
+             p.y -= Math.sin(angle) * force * 0.8;
+          }
+
+          // Draw Node
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Collect connection lines
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx2 = p.x - p2.x;
+            const dy2 = p.y - p2.y;
+            const dist2Sq = dx2 * dx2 + dy2 * dy2;
+
+            if (dist2Sq < connectionDistanceSq) {
+              const dist2 = Math.sqrt(dist2Sq);
+              const alpha = 1 - dist2 / connectionDistance;
+             
+              // Check if close to mouse
+              const m2dx = mX - p2.x;
+              const m2dy = mY - p2.y;
+              const mouseDist = Math.sqrt(distSq) + Math.sqrt(m2dx * m2dx + m2dy * m2dy);
+             
+              if (mouseDist < 400) {
+                redLines.push([p.x, p.y, p2.x, p2.y, alpha]);
+              } else {
+                faintLines.push([p.x, p.y, p2.x, p2.y, alpha]);
+              }
             }
           }
         }
-      }
 
-      // Draw all faint lines in one batch
-      if (faintLines.length > 0) {
-        ctx.lineWidth = 0.5;
-        for (const [x1, y1, x2, y2, a] of faintLines) {
-          ctx.strokeStyle = `rgba(0,0,0,${a * 0.05})`;
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.stroke();
+        // Draw all faint lines in one batch
+        if (faintLines.length > 0) {
+          ctx.lineWidth = 0.5;
+          for (const [x1, y1, x2, y2, a] of faintLines) {
+            ctx.strokeStyle = `rgba(0,0,0,${a * 0.05})`;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
         }
-      }
 
-      // Draw all red lines in one batch  
-      if (redLines.length > 0) {
-        ctx.lineWidth = 0.8;
-        for (const [x1, y1, x2, y2, a] of redLines) {
-          ctx.strokeStyle = `rgba(255,31,31,${a * 0.35})`;
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.stroke();
+        // Draw all red lines in one batch  
+        if (redLines.length > 0) {
+          ctx.lineWidth = 0.8;
+          for (const [x1, y1, x2, y2, a] of redLines) {
+            ctx.strokeStyle = `rgba(255,31,31,${a * 0.35})`;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
         }
-      }
-      requestAnimationFrame(animate);
-    };
-    
-    const animId = requestAnimationFrame(animate);
+        animId = requestAnimationFrame(animate);
+      };
+      
+      animId = requestAnimationFrame(animate);
+    }, 1000);
 
     return () => {
+      clearTimeout(startTimer);
       window.removeEventListener('resize', resize);
       document.removeEventListener('visibilitychange', handleVisibility);
       observer.disconnect();
@@ -245,8 +274,8 @@ export const HeroAI: React.FC = () => {
 
       <div className="max-w-[1600px] mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
-        {/* Left: Typography */}
-        <motion.div style={{ y, opacity }} className="relative z-20">
+        {/* Left: Typography — plain div for instant LCP paint */}
+        <div ref={textRef} className="relative z-20" style={{ willChange: 'transform, opacity' }}>
           <div className="flex items-center gap-4 mb-8">
             <div className="px-4 py-1.5 rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-sm shadow-sm flex items-center gap-3">
               <span className="relative flex h-2 w-2">
@@ -285,13 +314,14 @@ export const HeroAI: React.FC = () => {
               </span>
             </Link>
           </div>
-        </motion.div>
+        </div>
 
         {/* Right: Quantum Core Animation */}
         <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end pointer-events-none">
-          <motion.div 
-            style={{ rotate }}
+          <div 
+            ref={reactorRef}
             className="relative w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[500px] md:h-[500px]"
+            style={{ willChange: 'transform' }}
           >
             {/* The Core Reactor */}
             <div className="absolute inset-0 preserve-3d">
@@ -318,7 +348,7 @@ export const HeroAI: React.FC = () => {
 
 
 
-          </motion.div>
+          </div>
         </div>
       </div>
       

@@ -4,8 +4,12 @@ import { Navbar } from './components/Navbar';
 import { HeroAI } from './components/HeroAI';
 import { AIBg } from './components/AIBg';
 import { CustomCursor } from './components/CustomCursor';
-import { Marquee } from './components/Marquee';
-import { CoreValues } from './components/CoreValues';
+const Marquee = dynamic(() => import('./components/Marquee').then(mod => ({ default: mod.Marquee })), {
+  loading: () => <div className="min-h-[200px]" />,
+});
+const CoreValues = dynamic(() => import('./components/CoreValues').then(mod => ({ default: mod.CoreValues })), {
+  loading: () => <div className="min-h-screen" />,
+});
 
 // Dynamically import below-the-fold sections to reduce initial JS bundle and hydration cost
 const Services = dynamic(() => import('./components/Services').then(mod => ({ default: mod.Services })), {

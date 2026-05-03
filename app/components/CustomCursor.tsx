@@ -1,17 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useCallback } from 'react';
-import { useMotionValue, useSpring, useAnimationFrame } from 'framer-motion';
 
 export const CustomCursor: React.FC = () => {
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  // Smooth springs for the follower
-  const springConfig = { damping: 20, stiffness: 150, mass: 0.6 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
-
   // Use refs instead of state to avoid re-renders on every mouse event
   const hoverStateRef = useRef<'default' | 'pointer'>('default');
   const isClickingRef = useRef(false);
@@ -21,6 +12,13 @@ export const CustomCursor: React.FC = () => {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const ringInnerRef = useRef<HTMLDivElement>(null);
+
+  // Raw mouse position (dot follows instantly)
+  const mouseXRef = useRef(-100);
+  const mouseYRef = useRef(-100);
+  // Smoothed position (ring follows with lerp)
+  const cursorXRef = useRef(-100);
+  const cursorYRef = useRef(-100);
 
   useEffect(() => {
     const finePointer = window.matchMedia('(pointer: fine)').matches;
@@ -77,8 +75,8 @@ export const CustomCursor: React.FC = () => {
       if (rafId !== null) return;
       rafId = window.requestAnimationFrame(() => {
         rafId = null;
-        mouseX.set(latestX);
-        mouseY.set(latestY);
+        mouseXRef.current = latestX;
+        mouseYRef.current = latestY;
         if (!isVisibleRef.current) {
           isVisibleRef.current = true;
           applyStyles();
@@ -117,32 +115,40 @@ export const CustomCursor: React.FC = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('mouseover', checkHover);
     };
-  }, [mouseX, mouseY, applyStyles]);
+  }, [applyStyles]);
 
-  // Subscribe to motion value changes to update dot & ring position via DOM
+  // Smooth follow loop using lerp (replaces framer-motion useSpring)
   useEffect(() => {
     if (!enabledRef.current) return;
 
-    const unsubX = mouseX.on('change', (v) => {
-      if (dotRef.current) dotRef.current.style.left = `${v}px`;
-    });
-    const unsubY = mouseY.on('change', (v) => {
-      if (dotRef.current) dotRef.current.style.top = `${v}px`;
-    });
-    const unsubCX = cursorX.on('change', (v) => {
-      if (ringRef.current) ringRef.current.style.left = `${v}px`;
-    });
-    const unsubCY = cursorY.on('change', (v) => {
-      if (ringRef.current) ringRef.current.style.top = `${v}px`;
-    });
+    let animId: number;
+    const lerpFactor = 0.12; // Approximates the spring damping feel
+
+    const tick = () => {
+      // Lerp the ring position toward mouse
+      cursorXRef.current += (mouseXRef.current - cursorXRef.current) * lerpFactor;
+      cursorYRef.current += (mouseYRef.current - cursorYRef.current) * lerpFactor;
+
+      // Update dot position (instant)
+      if (dotRef.current) {
+        dotRef.current.style.left = `${mouseXRef.current}px`;
+        dotRef.current.style.top = `${mouseYRef.current}px`;
+      }
+      // Update ring position (smooth)
+      if (ringRef.current) {
+        ringRef.current.style.left = `${cursorXRef.current}px`;
+        ringRef.current.style.top = `${cursorYRef.current}px`;
+      }
+
+      animId = requestAnimationFrame(tick);
+    };
+
+    animId = requestAnimationFrame(tick);
 
     return () => {
-      unsubX();
-      unsubY();
-      unsubCX();
-      unsubCY();
+      cancelAnimationFrame(animId);
     };
-  }, [mouseX, mouseY, cursorX, cursorY]);
+  }, []);
 
   return (
     <>

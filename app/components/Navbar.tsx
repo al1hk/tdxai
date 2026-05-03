@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Moon, Sun, User, Layers, Briefcase, DollarSign, MessageSquare, Mail } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import Image from 'next/image';
@@ -85,11 +84,9 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "circOut" }}
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
+      {/* CSS animation replaces framer-motion initial/animate */}
+      <nav
+        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 navbar-enter"
       >
         <div className={`
           flex items-center justify-between px-4 md:px-6 py-3 rounded-full transition-all duration-300 w-full max-w-5xl backdrop-blur-md border border-white/10
@@ -146,70 +143,63 @@ export const Navbar: React.FC = () => {
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-black pt-24 px-6 flex flex-col items-center"
-          >
-            {navLinks.map((link, i) => {
-              const Icon = link.icon;
-              const isActive = activeSection === link.href;
-              return (
-                <motion.a
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-4 text-3xl font-display font-bold mb-6 transition-colors duration-200
-                    ${isActive
-                      ? 'text-tdx-red'
-                      : 'text-gray-900 dark:text-white hover:text-tdx-red'
-                    }
-                  `}
-                >
-                  <span className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all duration-200
-                    ${isActive
-                      ? 'bg-tdx-red/10 border-tdx-red/30 text-tdx-red'
-                      : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-400'
-                    }
-                  `}>
-                    <Icon size={20} />
-                  </span>
-                  {link.name}
-                </motion.a>
-              );
-            })}
+      {/* Mobile Menu Overlay — CSS transitions replace AnimatePresence */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-white dark:bg-black pt-24 px-6 flex flex-col items-center mobile-menu-enter"
+        >
+          {navLinks.map((link, i) => {
+            const Icon = link.icon;
+            const isActive = activeSection === link.href;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center gap-4 text-3xl font-display font-bold mb-6 transition-colors duration-200 mobile-menu-item
+                  ${isActive
+                    ? 'text-tdx-red'
+                    : 'text-gray-900 dark:text-white hover:text-tdx-red'
+                  }
+                `}
+                style={{ animationDelay: `${i * 0.06}s` }}
+              >
+                <span className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all duration-200
+                  ${isActive
+                    ? 'bg-tdx-red/10 border-tdx-red/30 text-tdx-red'
+                    : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-400'
+                  }
+                `}>
+                  <Icon size={20} />
+                </span>
+                {link.name}
+              </a>
+            );
+          })}
 
-            <div className="flex items-center gap-4 mt-4 w-full max-w-xs">
-              <button
-                type="button"
-                aria-label="Toggle dark mode"
-                onClick={toggleTheme}
-                className="flex-1 px-6 py-4 text-base font-bold rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white"
-              >
-                {theme === 'dark' ? '☀ Light' : '🌙 Dark'}
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setTimeout(scrollToContact, 300);
-                }}
-                className="flex-1 px-6 py-4 text-base font-bold text-white bg-tdx-red rounded-full shadow-lg"
-              >
-                Start Project
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <div className="flex items-center gap-4 mt-4 w-full max-w-xs">
+            <button
+              type="button"
+              aria-label="Toggle dark mode"
+              onClick={toggleTheme}
+              className="flex-1 px-6 py-4 text-base font-bold rounded-full border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white"
+            >
+              {theme === 'dark' ? '☀ Light' : '🌙 Dark'}
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setTimeout(scrollToContact, 300);
+              }}
+              className="flex-1 px-6 py-4 text-base font-bold text-white bg-tdx-red rounded-full shadow-lg"
+            >
+              Start Project
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
