@@ -448,9 +448,9 @@ export const Contact: React.FC = () => {
                </p>
                <div className="flex gap-4">
                  {[
-                   { icon: Linkedin, href: 'https://www.linkedin.com/company/tdx/' },
-                   { icon: Facebook, href: 'https://www.facebook.com/TDXai/' },
-                   { icon: Instagram, href: 'https://www.instagram.com/tdx.ai' }
+                   { icon: Linkedin, href: 'https://www.linkedin.com/company/tdx/', name: 'LinkedIn' },
+                   { icon: Facebook, href: 'https://www.facebook.com/TDXai/', name: 'Facebook' },
+                   { icon: Instagram, href: 'https://www.instagram.com/tdx.ai', name: 'Instagram' }
                  ].map((social, i) => {
                    const Icon = social.icon;
                    return (
