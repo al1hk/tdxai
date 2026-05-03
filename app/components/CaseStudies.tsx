@@ -132,10 +132,15 @@ export const CaseStudies: React.FC = () => {
     if (!isMobile || !scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
 
+    let cardWidth = 0;
     const handleScroll = () => {
-      const card = container.querySelector('.case-card');
-      if (!card) return;
-      const cardWidth = (card as HTMLElement).clientWidth + 32; // + gap
+      if (!cardWidth) {
+        const card = container.querySelector('.case-card');
+        if (card) {
+          cardWidth = (card as HTMLElement).clientWidth + 32; // + gap
+        }
+      }
+      if (!cardWidth) return;
       const index = Math.round(container.scrollLeft / cardWidth);
       setActiveIndex(Math.max(0, Math.min(index, cases.length - 1)));
     };

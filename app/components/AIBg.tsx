@@ -8,6 +8,7 @@ export const AIBg: React.FC = () => {
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
+    if (window.innerWidth < 768) return; // Completely skip heavy canvas initialization on mobile
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -107,13 +108,6 @@ export const AIBg: React.FC = () => {
           return;
         }
         lastTime = t;
-
-        // Disable heavy background physics on mobile
-        if (width < 768) {
-          ctx.clearRect(0, 0, width, height);
-          rafId = requestAnimationFrame(animate);
-          return;
-        }
 
         ctx.clearRect(0, 0, width, height);
         

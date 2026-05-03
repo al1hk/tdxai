@@ -24,13 +24,14 @@ export const HeroAI: React.FC = () => {
     if (!section) return;
 
     let ticking = false;
+    let h = 0;
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
+        if (!h) h = section.offsetHeight || 1;
         const rect = section.getBoundingClientRect();
-        const h = section.offsetHeight || 1;
         const progress = Math.max(0, Math.min(1, -rect.top / h));
 
         if (textEl) {
@@ -75,6 +76,7 @@ export const HeroAI: React.FC = () => {
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
+    if (window.innerWidth < 768) return; // Completely skip heavy canvas initialization on mobile
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -145,13 +147,6 @@ export const HeroAI: React.FC = () => {
           return;
         }
         lastTime = t - (delta % frameMs);
-
-        // Turn off heavy canvas animation on mobile to save performance
-        if (width < 768) {
-          ctx.clearRect(0, 0, width, height);
-          animId = requestAnimationFrame(animate);
-          return;
-        }
 
         ctx.clearRect(0, 0, width, height);
         
